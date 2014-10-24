@@ -66,7 +66,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-BR'
 
 TIME_ZONE = 'UTC'
 
@@ -81,3 +81,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static_files'),
+)
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    'hamlpy.template.loaders.HamlPyFilesystemLoader',
+    'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
+)
+
+BOOTSTRAP3 = {
+    'jquery_url':os.path.join(STATIC_URL,'js/jquery-1.11.1.min.js'),
+    'css_url': os.path.join(STATIC_URL,'bootstrap3/css/bootstrap.min.css'),
+    'javascript_url':os.path.join(STATIC_URL,'bootstrap3/js/bootstrap.min.js'),
+    'horizontal_label_class': 'col-md-3',
+    'horizontal_field_class': 'col-md-8',
+}
