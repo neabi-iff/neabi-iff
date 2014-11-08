@@ -36,7 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'core',
+    'fundo',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -100,3 +102,12 @@ BOOTSTRAP3 = {
     'horizontal_label_class': 'col-md-3',
     'horizontal_field_class': 'col-md-8',
 }
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-spec',
+    '--spec-color',
+    '--nologcapture',
+    '--verbosity=1',
+]
