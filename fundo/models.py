@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-import hashlib
+#import hashlib
 
 
 class Fundo(models.Model):
-    titulo = models.CharField("título", max_length=255)
+    nome = models.CharField("Nome do Fundo", max_length=255)
     biblioteca = models.CharField(max_length=255)
     descricao = models.TextField("Descrição")
 
@@ -13,8 +13,19 @@ class Fundo(models.Model):
         verbose_name_plural = "Fundos"
 
     def __unicode__(self):
-        return "%s" % self.titulo
+        return "%s" % self.nome
 
+
+class Serie(models.Model):
+    nome = models.CharField(max_length=255)
+    descricao = models.TextField("Descrição")
+
+    class Meta:
+        verbose_name = u"Série"
+        verbose_name_plural = u"Séries"
+
+    def __unicode__(self):
+        return "%s" % self.nome
 
 # class Documento(models.Model):
 #     codigo_referencia = models.CharField(verbose_name='Código de Referência', max_length=255)
