@@ -25,7 +25,7 @@ documento = Recipe(Documento,
                    condicao_acesso=u"codição",
                    nota_conservacao=u"nota de conservação",
                    nota_gerais="nota gerais",
-                   slug="my skug",
+                   slug="",
                    serie=foreign_key(serie),
                    fundo=foreign_key(fundo)
                    )

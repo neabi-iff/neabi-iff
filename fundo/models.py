@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-#import hashlib
+import hashlib
 
 
 class Fundo(models.Model):
@@ -50,19 +50,7 @@ class Documento(models.Model):
     def __unicode__(self):
         return u"%s (%s)" % (self.titulo, self.codigo_referencia)
 
-#     def save(self, *args, **kwargs):
-#         if not self.slug:
-#             self.slug = hashlib.md5(str(self.codigo_referencia)+str(self.id)).hexdigest()
-#         return super(Documento, self).save(*args, **kwargs)
-
-
-# class Serie(models.Model):
-#     titulo = models.CharField(max_length=255)
-#     descricao = models.TextField(verbose_name='Descrição')
-
-#     class Meta:
-#         verbose_name = "Serie"
-#         verbose_name_plural = "Series"
-
-#     def __unicode__(self):
-#         pass
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = hashlib.md5(str(self.codigo_referencia)).hexdigest()
+        return super(Documento, self).save(*args, **kwargs)

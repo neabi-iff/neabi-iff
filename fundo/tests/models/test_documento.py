@@ -77,3 +77,8 @@ class TestModelDocumento(TestCase):
     def test_verbose_name_do_campo_serie(self):
         serie = Documento._meta.get_field('serie')
         self.assertEqual(serie.verbose_name, 'Série')
+
+    def test_save_deve_gerar_slug(self):
+        import hashlib
+        slug = hashlib.md5('ABN001').hexdigest()
+        self.assertEqual(self.documento.slug, slug)
