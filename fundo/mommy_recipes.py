@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from model_mommy.recipe import Recipe, foreign_key
-from .models import Fundo
-from .models import Serie
+from .models import Fundo, Serie, Documento
+import datetime
 
 fundo = Recipe(Fundo,
                nome="Fundo de Escravos",
@@ -14,8 +14,18 @@ serie = Recipe(Serie,
                descricao=u"descrição da serie"
                )
 
-#area_docente = Recipe(AreaDocente)
-
-# local = Recipe(Local)
-
-#professor = Recipe(Professor)
+documento = Recipe(Documento,
+                   codigo_referencia="abc",
+                   titulo="Meu Documento",
+                   data=datetime.date.today(),
+                   dimensao_suporte="dimensao",
+                   nivel_descricao="nivel descricao",
+                   autor="autor",
+                   ambito_conteudo="ambito",
+                   condicao_acesso=u"codição",
+                   nota_conservacao=u"nota de conservação",
+                   nota_gerais="nota gerais",
+                   slug="my skug",
+                   serie=foreign_key(serie),
+                   fundo=foreign_key(fundo)
+                   )

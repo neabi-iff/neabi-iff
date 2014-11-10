@@ -13,7 +13,7 @@ class Fundo(models.Model):
         verbose_name_plural = "Fundos"
 
     def __unicode__(self):
-        return "%s" % self.nome
+        return u"%s" % self.nome
 
 
 class Serie(models.Model):
@@ -25,27 +25,30 @@ class Serie(models.Model):
         verbose_name_plural = u"Séries"
 
     def __unicode__(self):
-        return "%s" % self.nome
+        return u"%s" % self.nome
 
-# class Documento(models.Model):
-#     codigo_referencia = models.CharField(verbose_name='Código de Referência', max_length=255)
-#     titulo = models.CharField(verbose_name='Título', max_length=255)
-#     data = models.DateField(verbose_name='Data do Documento')
-#     dimensao_suporte = models.CharField(verbose_name='Dimensão e Suporte', max_length=255)
-#     nivel_descricao = models.CharField(verbose_name='Nível de Descrição', max_length=255)
-#     autor = models.CharField(verbose_name='Nome(s) do(s) Produtore(s)', max_length=255)
-#     ambito_conteudo = models.TextField(verbose_name='Ámbito e Conteúdo')
-#     condicao_acesso = models.CharField(verbose_name='Condição de Acesso', max_length=255)
-#     nota_conservacao = models.CharField(verbose_name='Notas de Conservação', max_length=255)
-#     nota_gerais = models.CharField(verbose_name='Notas Gerais', max_length=255)
-#     slug = models.SlugField(blank=True)
 
-#     class Meta:
-#         verbose_name = "Documento"
-#         verbose_name_plural = "Documentos"
+class Documento(models.Model):
+    codigo_referencia = models.CharField('Código de Referência', max_length=255)
+    nota_conservacao = models.CharField('Notas de Conservação', max_length=255)
+    titulo = models.CharField('Título', max_length=255)
+    data = models.DateField('Data do Documento')
+    dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=255)
+    nivel_descricao = models.CharField('Nível de Descrição', max_length=255)
+    autor = models.CharField('Nome(s) do(s) Autor(es)', max_length=255)
+    ambito_conteudo = models.TextField('Ámbito e Conteúdo')
+    condicao_acesso = models.CharField('Condição de Acesso', max_length=255)
+    nota_gerais = models.CharField('Notas Gerais', max_length=255)
+    slug = models.SlugField(blank=True)
+    serie = models.ForeignKey("Serie", verbose_name='Série')
+    fundo = models.ForeignKey("Fundo")
 
-#     def __unicode__(self):
-#         return "%s - %s" % (self.codigo_referencia, self.titulo)
+    class Meta:
+        verbose_name = "Documento"
+        verbose_name_plural = "Documentos"
+
+    def __unicode__(self):
+        return u"%s (%s)" % (self.titulo, self.codigo_referencia)
 
 #     def save(self, *args, **kwargs):
 #         if not self.slug:
