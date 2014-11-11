@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from model_mommy.recipe import Recipe, foreign_key
-from .models import Fundo, Serie, Documento
+from .models import Fundo, Serie, Documento, Pagina
 import datetime
 
 fundo = Recipe(Fundo,
@@ -29,3 +29,9 @@ documento = Recipe(Documento,
                    serie=foreign_key(serie),
                    fundo=foreign_key(fundo)
                    )
+
+pagina = Recipe(Pagina,
+                titulo="My titulo",
+                arquivo="documento.jpg",
+                documento=foreign_key(documento)
+                )

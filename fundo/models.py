@@ -54,3 +54,16 @@ class Documento(models.Model):
         if not self.slug:
             self.slug = hashlib.md5(str(self.codigo_referencia)).hexdigest()
         return super(Documento, self).save(*args, **kwargs)
+
+
+class Pagina(models.Model):
+    titulo = models.CharField('Título', max_length=255)
+    arquivo = models.ImageField(upload_to="paginas/")
+    documento = models.ForeignKey("Documento")
+
+    class Meta:
+        verbose_name = "Pagina"
+        verbose_name_plural = "Paginas"
+
+    def __unicode__(self):
+        return "%s (%s)" % (self.titulo, self.arquivo.name)
