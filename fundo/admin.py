@@ -1,9 +1,14 @@
 from django.contrib import admin
-from .models import Documento, Serie, Fundo
+from .models import Documento, Serie, Fundo, Pagina
+
+
+class PaginaInline(admin.StackedInline):
+    model = Pagina
+    extra = 0
 
 
 class DocumentoAdmin(admin.ModelAdmin):
-    pass
+    inlines = [PaginaInline]
 
 
 class SerieAdmin(admin.ModelAdmin):
