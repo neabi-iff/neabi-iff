@@ -9,7 +9,7 @@ class TestModelPagina(TestCase):
 
     def setUp(self):
         self.pagina = mommy.make_recipe('fundo.pagina',
-                                        titulo="My titulo",
+                                        arquivo="documento.jpg",
                                         documento=documento.make(titulo="My Documento",
                                                                  codigo_referencia="abc"
                                                                  )
@@ -18,11 +18,11 @@ class TestModelPagina(TestCase):
     def test_verifica_se_a_pagina_foi_criada(self):
         all_paginas_in_database = Pagina.objects.all()
         self.assertEquals(len(all_paginas_in_database), 1)
-        self.assertEquals(self.pagina.titulo, u"My titulo")
+        self.assertEquals(self.pagina.arquivo, u"documento.jpg")
         self.assertEquals(unicode(self.pagina.documento), "My Documento (abc)")
 
     def test_representacao_unicode_do_objeto(self):
-        self.assertEqual(unicode(self.pagina), u"My titulo (documento.jpg)")
+        self.assertEqual(unicode(self.pagina), u"documento.jpg (abc)")
 
     def test_verbose_name_da_classe(self):
         verbose_name = Pagina._meta.verbose_name
@@ -31,10 +31,6 @@ class TestModelPagina(TestCase):
     def test_verbose_name_plural_da_classe(self):
         verbose_name_plural = Pagina._meta.verbose_name_plural
         self.assertEqual(verbose_name_plural, 'Paginas')
-
-    def test_verbose_name_do_campo_titulo(self):
-        titulo = Pagina._meta.get_field('titulo')
-        self.assertEqual(titulo.verbose_name, 'Título')
 
     def test_upload_do_arquivo_para_a_pasta_paginas(self):
         arquivo = Pagina._meta.get_field('arquivo')

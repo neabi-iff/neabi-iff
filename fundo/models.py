@@ -57,7 +57,6 @@ class Documento(models.Model):
 
 
 class Pagina(models.Model):
-    titulo = models.CharField('Título', max_length=255)
     arquivo = models.ImageField(upload_to="paginas/")
     documento = models.ForeignKey("Documento")
 
@@ -66,4 +65,4 @@ class Pagina(models.Model):
         verbose_name_plural = "Paginas"
 
     def __unicode__(self):
-        return "%s (%s)" % (self.titulo, self.arquivo.name)
+        return "%s (%s)" % (self.arquivo.name, self.documento.codigo_referencia)

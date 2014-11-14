@@ -31,7 +31,6 @@ documento = Recipe(Documento,
                    )
 
 pagina = Recipe(Pagina,
-                titulo="My titulo",
                 arquivo="documento.jpg",
                 documento=foreign_key(documento)
                 )
