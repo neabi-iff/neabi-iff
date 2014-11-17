@@ -7,7 +7,7 @@ from core.views import HomePageView
 
 urlpatterns = patterns('',
     url(r'^$', HomePageView.as_view()),
-    # url(r'^blog/', include('blog.urls')),
+    url(r'^fundo/', include('fundo.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 )
