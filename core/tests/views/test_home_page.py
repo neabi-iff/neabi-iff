@@ -20,7 +20,7 @@ class TestViewHome(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, "core/home_page.html")
 
-    def test_check_se_contem_url_para_os_fundos(self):
+    def test_check_se_contem_url_para_ver_os_fundos(self):
         response = self.client.get('/')
         fundos_url = reverse('fundo')
         self.assertIn(fundos_url, response.content)
