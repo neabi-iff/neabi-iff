@@ -7,5 +7,6 @@
 
 - block container
     -for serie in serie_list
-        = serie
+        %a{ href: "{% url 'documento-list' fundo.pk serie.pk %}"}
+            = serie
         %br
