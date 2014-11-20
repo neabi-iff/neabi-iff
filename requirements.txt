@@ -6,3 +6,4 @@ django-bootstrap3
 http://darcs.idyll.org/~t/projects/figleaf-0.6.1.tar.gz
 specloud
 Pillow
+should-dsl
