@@ -2,6 +2,7 @@
 from django.test import TestCase
 from model_mommy import mommy
 from django.core.urlresolvers import reverse
+from should_dsl import should
 
 
 class TestViewFundoList(TestCase):
@@ -36,3 +37,11 @@ class TestViewFundoList(TestCase):
         fundo2_series_list_url = reverse('serie-list', args=[self.fundo2.id])
         self.assertIn(fundo1_series_list_url, response.content)
         self.assertIn(fundo2_series_list_url, response.content)
+
+    def test_deve_mostrar_mensagem_quando_nao_tiver_fundo_cadastrado(self):
+        self.fundo1.delete()
+        self.fundo2.delete()
+        response = self.client.get(reverse('fundo'))
+        fundos_in_context = response.context['fundo_list']
+        list(fundos_in_context) |should| be_empty()
+        response.content |should| contain("Não tem Fundo cadastrado no momento.")

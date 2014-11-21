@@ -7,6 +7,8 @@
 
 - block container
     -for fundo in fundo_list
-        %a{ href: "{% url 'serie-list' fundo.pk %}"}
-            = fundo
-        %br
+      %a{ href: "{% url 'serie-list' fundo.pk %}"}
+        = fundo
+      %br
+    -empty
+      %p Não tem Fundo cadastrado no momento.

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from model_mommy import mommy
-from model_mommy.recipe import foreign_key
 from django.core.urlresolvers import reverse
+from should_dsl import should
 
 
 class TestViewSerieList(TestCase):
@@ -58,3 +58,17 @@ class TestViewSerieList(TestCase):
         series2_documento_url = reverse('documento-list', args=[self.fundo1.pk, self.serie2.id])
         self.assertIn(series1_documento_url, response.content)
         self.assertIn(series2_documento_url, response.content)
+
+    def test_deve_mostrar_mensagem_quando_nao_tiver_serie_cadastrada(self):
+        self.serie1.delete()
+        self.serie2.delete()
+        self.serie3.delete()
+        response1 = self.client.get(reverse('serie-list', args=[self.fundo1.pk]))
+        series_in_context1 = response1.context['serie_list']
+        list(series_in_context1) |should| be_empty()
+        response1.content |should| contain("Não possui documentos para as series do fundo no momento.")
+
+        response2 = self.client.get(reverse('serie-list', args=[self.fundo2.pk]))
+        series_in_context2 = response2.context['serie_list']
+        list(series_in_context2) |should| be_empty()
+        response2.content |should| contain("Não possui documentos para as series do fundo no momento.")
