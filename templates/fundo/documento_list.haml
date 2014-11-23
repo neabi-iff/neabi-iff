@@ -6,4 +6,9 @@
 - block extra_head
 
 - block container
-    teste
+    -for documento in documento_list
+      %a{ href: "{% url 'documento-detail' fundo.pk serie.pk documento.pk %}"}
+        = documento
+      %br
+    -empty
+      %p Não possui documentos para esta série {{ serie }}.
