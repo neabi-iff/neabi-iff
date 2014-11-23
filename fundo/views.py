@@ -36,4 +36,11 @@ class DocumentoList(ListView):
         return context
 
 class DocumentoDetail(DetailView):
-    pass
+    model = Documento
+
+    def get_object(self):
+        self.fundo = get_object_or_404(Fundo, id=self.kwargs['pk_fundo'])
+        self.serie = get_object_or_404(Serie, id=self.kwargs['pk_serie'])
+        self.documentos = Documento.objects.filter(fundo=self.fundo, serie=self.serie)
+        self.documento = get_object_or_404(self.documentos, pk=self.kwargs['pk'])
+        return self.documento
