@@ -7,3 +7,6 @@ http://darcs.idyll.org/~t/projects/figleaf-0.6.1.tar.gz
 specloud
 Pillow
 should-dsl
+https://github.com/Fantomas42/django-blog-zinnia/archive/feature/django-1.7.zip
+django-tinymce
+zinnia-wysiwyg-tinymce
