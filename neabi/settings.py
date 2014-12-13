@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django_comments',
     'tagging',
     'mptt',
+    'zinnia_bootstrap',
     'zinnia',
     'tinymce',
     'zinnia_tinymce',
@@ -102,6 +103,7 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'deploy/')
 MEDIA_URL = '/uploads/'
 
 TEMPLATE_LOADERS = (
+    'app_namespace.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
     'django.template.loaders.eggs.Loader',

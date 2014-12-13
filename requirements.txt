@@ -10,3 +10,5 @@ should-dsl
 https://github.com/Fantomas42/django-blog-zinnia/archive/feature/django-1.7.zip
 django-tinymce
 zinnia-wysiwyg-tinymce
+django-app-namespace-template-loader
+zinnia-theme-bootstrap
