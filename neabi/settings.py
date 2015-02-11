@@ -72,20 +72,21 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+# import dj_database_url
+# DATABASES = {'default': dj_database_url.config(default='postgres://qgdouegqqwmija:Ir6tVo2KrDPRf4JFkFWnxC1Rlu@ec2-54-83-43-49.compute-1.amazonaws.com:5432/daobm27ucojnui') }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'daobm27ucojnui',
+#         'USER': 'qgdouegqqwmija',
+#         'PASSWORD':'Ir6tVo2KrDPRf4JFkFWnxC1Rlu',
+#         'HOST': 'ec2-54-83-43-49.compute-1.amazonaws.com',
+#         'PORT':'5432'
+#     }
+# }
 import dj_database_url
-DATABASES = {'default': dj_database_url.config(default='postgres://qgdouegqqwmija:Ir6tVo2KrDPRf4JFkFWnxC1Rlu@ec2-54-83-43-49.compute-1.amazonaws.com:5432/daobm27ucojnui') }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'daobm27ucojnui',
-        'USER': 'qgdouegqqwmija',
-        'PASSWORD':'Ir6tVo2KrDPRf4JFkFWnxC1Rlu',
-        'HOST': 'ec2-54-83-43-49.compute-1.amazonaws.com',
-        'PORT':'5432'
-    }
-}
-
+DATABASES['default'] =  dj_database_url.config()
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
