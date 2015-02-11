@@ -12,3 +12,4 @@ django-tinymce
 zinnia-wysiwyg-tinymce
 django-app-namespace-template-loader
 zinnia-theme-bootstrap
+django-toolbelt
