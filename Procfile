@@ -1,0 +1,1 @@
+web: gunicorn neabi.wsgi --log-file -
