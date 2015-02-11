@@ -12,5 +12,3 @@ django-tinymce
 zinnia-wysiwyg-tinymce
 django-app-namespace-template-loader
 zinnia-theme-bootstrap
-
-https://dashboard.heroku.com/apps/neabi/deploy/heroku-git
