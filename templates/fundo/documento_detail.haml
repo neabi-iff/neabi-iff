@@ -7,5 +7,7 @@
 
 - block container
     = documento 
-    %br
     = documento.nota_conservacao
+    - for pagina in documento.pagina_set.all
+        %img{:src =>"{{ pagina.arquivo.url}}" }
+        %br
