@@ -3,7 +3,5 @@
 db.sqlite3
 *.csv
 deploy/paginas/
-settings_heroku.py
-wsgi_heroku.py
 settings.py
 wsgi.py
