@@ -5,3 +5,5 @@ db.sqlite3
 deploy/paginas/
 settings_heroku.py
 wsgi_heroku.py
+settings.py
+wsgi.py
