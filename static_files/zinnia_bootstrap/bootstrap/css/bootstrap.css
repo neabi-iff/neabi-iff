@@ -305,6 +305,7 @@ body {
   line-height: 1.428571429;
   color: #333333;
   background-color: #ffffff;
+  background-image: url('fundo.jpg');
 }
 
 input,
@@ -6802,4 +6803,132 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+}
+.tag{
+  max-width: 120%;
+  margin-left: 13%;
+  margin-top: -10%;
+  margin-bottom: 20%;
+}
+
+.search-new{
+  border-radius: 20px;
+  border: 1px solid #000000;
+  padding: 20spx 180px;
+  font-size: 20px;
+  padding-left: 15px;
+}
+
+@font-face {
+  font-family: 'BEBAS';
+  src: url('BEBAS.TTF');
+}
+
+.bebas{
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'BEBAS';
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  font-size: 150%;
+  color: #777777;
+}
+
+.destaque{
+  margin-left: 5%;
+  margin-top: 10%;
+}
+
+.logo{
+  max-width: 120%;
+  margin-left: 9%;
+  padding-bottom: 3%;
+}
+
+.logo-iff{
+  max-width: 21%;
+  margin-left: 75%;
+}
+
+.o-neabi{
+  max-width: 50%;
+  margin-top: 36%;
+  margin-left: 50%;
+
+}
+
+.publicacoes{
+  max-width: 79%;
+  margin-top: 36%;
+  margin-left: 9%;
+}
+
+.acervo{
+  max-width: 50%;
+  margin-top: 36%;
+  margin-left: -3%;
+}
+
+.noticias-link{
+  max-width: 55%;
+  margin-top: 35%;
+  margin-left: -46%;
+}
+
+.contato{
+  max-width: 50%;
+  margin-top: 36%;
+  margin-left: -86%;
+}
+
+.barra-superior{
+  max-width: 97%;
+  margin-top: 6%;
+  padding-left: 5%;
+}
+
+.barra-superior-2{
+  max-width: 87%;
+  margin-top: 0%;
+  padding-left: 5%;
+}
+
+.noticia{
+  font-size: 250%;
+  margin-top: 12%;
+  margin-left: -2%;
+}
+
+.facebook{
+  max-width: 40%;
+  margin-left: 169%;
+  margin-top: -6%;
+}
+
+.twitter{
+  max-width: 40%;
+  margin-left: 93%;
+  margin-top: -5%;
+}
+
+.gmail{
+  max-width: 40%;
+  margin-left: 16%;
+  margin-top: -5%;
+}
+
+#rodape{
+  border-image: url('rodape.png') 25% repeat; 
+  /*border-image-repeat: repeat;*/
+}
+
+.body2{
+  margin-left: 4%;
+}
+
+.sidebar2{
+
 }
