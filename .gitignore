@@ -3,3 +3,5 @@
 db.sqlite3
 *.csv
 deploy/paginas/
+settings.py
+wsgi.py
