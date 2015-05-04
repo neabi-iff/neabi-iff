@@ -1,0 +1,11 @@
+{% extends "fundo/cabecalho.html" %}
+
+{% block content %}
+  <div class="col-md-8 col-xs-8">
+    <p class="bebas" id="o-neabi">O NEABI</p><br>
+
+    {%for neabi in sobreneabi_list %}
+      <p id="text-neabi">{{ neabi.sobre }}</p>
+    {% endfor %}
+  </div>
+{% endblock %}
