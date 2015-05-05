@@ -1,4 +1,4 @@
-Django
+Django==1.7.7
 hamlpy
 django-nose
 model_mommy

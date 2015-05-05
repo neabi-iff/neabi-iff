@@ -12,6 +12,8 @@ urlpatterns = patterns('',
     url(r'^neabi/', include('zinnia.urls', namespace = 'zinnia')),
     url(r'^comments/', include('django_comments.urls')),
     url(r'^tinymce/zinnia/', include('zinnia_tinymce.urls')),
+     # url(r'^ckeditor/', include('ckeditor.urls')),
+     url(r'^mce_filebrowser/', include('mce_filebrowser.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
     (r'^tinymce/', include('tinymce.urls')),
