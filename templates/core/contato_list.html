@@ -1,0 +1,36 @@
+{% extends "fundo/cabecalho.html" %}
+
+{% block content %}
+	<div class="col-md-12 col-xs-12">
+		<p class="bebas" id="contato">CONTATO</p><br>
+
+		{% for contato in contato_list %}
+			<p id="text-contato">{{ contato.descricao }}</p>
+				
+				<div class="row">
+					<div class="col-md-9 col-xs-9"></div>
+					<div class="col-md-3 col-xs-3">
+						<img src="{{STATIC_URL}}materialsite/arroba.png" id="arroba">
+						<p id="text-email">e-mail: {{ contato.email }}</p>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-8 col-xs-8"></div>
+					<div class="col-md-4 col-xs-4">
+						<img src="{{STATIC_URL}}materialsite/telefone.png" id="telefone">
+						<p id="text-telefone">telefone: {{ contato.telefone }} ramal: 2983</p>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-8 col-xs-8"></div>
+					<div class="col-md-4 col-xs-4">
+						<img src="{{STATIC_URL}}materialsite/simbolo_facebook.png" id="contato-facebook">
+						<p id="text-facebook">{{ contato.facebook }}</p>
+					</div>
+				</div>
+
+		{% endfor %}
+	</div>
+{% endblock %}

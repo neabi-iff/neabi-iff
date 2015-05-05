@@ -6804,6 +6804,7 @@ td.visible-print {
     display: none !important;
   }
 }
+
 .tag{
   max-width: 75%;
   margin-left: 13%;
@@ -6844,38 +6845,11 @@ td.visible-print {
 
 .logo-neabi{
   max-width: 85%;
-
 }
 
 .logo-iff{
   max-width: 15%;
   margin-left: 87%;
-}
-
-.o-neabi{
-  max-width: 10%;
-
-
-}
-
-.publicacoes{
-  max-width: 10%;
-
-}
-
-.acervo{
-  max-width: 10%;
-
-}
-
-.noticias-link{
-  max-width: 10%;
-
-}
-
-.contato{
-  max-width: 10%;
-
 }
 
 .barra-superior{
@@ -6886,14 +6860,19 @@ td.visible-print {
 }
 
 .barra-superior-2{
-  max-width: 58%;
-  margin-top: -5%;
+  max-width: 52%;
+  margin-top: -4%;
   margin-left: -1%;
 }
 
 @font-face {
   font-family: 'BreeSerifRegular';
   src: local('font/BreeSerifRegular.otf'), url('font/BreeSerifRegular.otf');
+}
+
+@font-face {
+  font-family: 'Gisha';
+  src: local('font/gisha.ttf'), url('font/gisha.ttf');
 }
 
 #menu{
@@ -6909,8 +6888,8 @@ td.visible-print {
 }
 
 #social{
-  margin-top: -4.2%;
-  margin-left: 69%;
+  margin-top: -3.35%;
+  margin-left: 63%;
 }
 
 .facebook{
@@ -6933,3 +6912,85 @@ td.visible-print {
 .pesquisa{
   margin-left: 4%;
 }
+.container{
+  max-width: 1320px;
+}
+
+#text-neabi{
+  text-align: justify;
+  font-family: 'Gisha';
+  font-size: larger;
+  color: #422A1D;
+  text-indent: 5%;
+}
+
+#contato{
+  font-size: xx-large;
+  color: #E87B54;
+  text-indent: 1%;
+  margin-bottom: 5%;
+}
+
+#text-contato{
+  color: #7D5F58;
+  text-align: justify;
+  font-size: larger;
+  text-indent: 5%;
+}
+
+#o-neabi{
+  font-size: xx-large;
+  text-indent: 2%;
+  margin-bottom: 7%;
+  color: #422A1D;
+}
+
+#text-email{
+  font-size: larger;
+  margin-left: 18%;
+}
+
+#arroba{
+  max-width: 10%;
+  margin-bottom: -15%;
+  margin-left: 5%;
+}
+
+#telefone{
+  max-width: 8%;
+  margin-bottom: -10%;
+  margin-left: 18%;
+}
+
+#text-telefone{
+  font-size: larger;
+  margin-left: 29%;
+}
+
+#contato-facebook{
+  max-width: 8%;
+  margin-bottom: -9%;
+}
+
+#text-facebook{
+  font-size: larger;
+  margin-left: 10%;
+}
+
+#acervo{
+  font-size: xx-large;
+  color: #99999F;
+  text-indent: 1%;
+  margin-bottom: 5%;
+}
+
+#tag-acervo{
+  max-width: 100%;
+}
+
+#text-acervo{
+  font-size: larger;
+  margin-top: 3%;
+  color: #4F3224;
+}
+
