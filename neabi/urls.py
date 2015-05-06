@@ -7,10 +7,9 @@ from core.views import HomePageView
 from core.views import Contato, Acervo, SobreNeabi
 
 urlpatterns = patterns('',
-    url(r'^$', HomePageView.as_view()),
     url(r'^fundo/', include('fundo.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^neabi/', include('zinnia.urls', namespace = 'zinnia')),
+    url(r'^', include('zinnia.urls', namespace = 'zinnia')),
     url(r'^comments/', include('django_comments.urls')),
     url(r'^tinymce/zinnia/', include('zinnia_tinymce.urls')),
 
