@@ -1,9 +1,9 @@
-{% extends "fundo/cabecalho.html" %}
+{% extends "core/cabecalho.html" %}
 
 {% block content %}
 	<div class="col-md-12">
 		<p class="bebas" id="acervo">O ACERVO</p><br>
-		
+
 		{% for acervo in acervo_list %}
 			<div class="col-md-1">
 				<img src="{{STATIC_URL}}materialsite/tag.png" id="tag-acervo">

@@ -1,4 +1,4 @@
-{% extends "fundo/cabecalho.html" %}
+{% extends "core/cabecalho.html" %}
 
 {% block content %}
 	<div class="col-md-12 col-xs-12">
@@ -6,7 +6,7 @@
 
 		{% for contato in contato_list %}
 			<p id="text-contato">{{ contato.descricao }}</p>
-				
+
 				<div class="row">
 					<div class="col-md-9 col-xs-9"></div>
 					<div class="col-md-3 col-xs-3">
@@ -14,7 +14,7 @@
 						<p id="text-email">e-mail: {{ contato.email }}</p>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col-md-8 col-xs-8"></div>
 					<div class="col-md-4 col-xs-4">
@@ -22,7 +22,7 @@
 						<p id="text-telefone">telefone: {{ contato.telefone }} ramal: 2983</p>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col-md-8 col-xs-8"></div>
 					<div class="col-md-4 col-xs-4">
