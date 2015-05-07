@@ -14,3 +14,4 @@ django-app-namespace-template-loader
 zinnia-theme-bootstrap
 django-toolbelt
 django-grappelli
+sorl-thumbnail

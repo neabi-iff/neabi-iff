@@ -259,3 +259,7 @@ div.entry-content.lead{
 .page-header{
   border-bottom: none;
 }
+
+.navbar-toggle .icon-bar{
+  background-color: aliceblue;
+}
