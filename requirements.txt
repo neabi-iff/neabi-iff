@@ -13,3 +13,4 @@ zinnia-wysiwyg-tinymce
 django-app-namespace-template-loader
 zinnia-theme-bootstrap
 django-toolbelt
+django-grappelli

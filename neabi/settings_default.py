@@ -31,6 +31,7 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = (
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -39,13 +40,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_comments',
-    'tagging',
     'mptt',
     'zinnia_bootstrap',
-    'zinnia',
-    'tinymce',
-    'zinnia_tinymce',
     'sorl.thumbnail',
+    'tinymce',
+    'zinnia',
+    'zinnia_tinymce',
+    'tagging',
     'django_nose',
     'bootstrap3',
     'core',
@@ -61,7 +62,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
-
 ROOT_URLCONF = 'neabi.urls'
 
 WSGI_APPLICATION = 'neabi.wsgi.application'
@@ -94,14 +94,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'deploy/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_files'),
 )
+ADMIN_MEDIA_PREFIX = STATIC_URL
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'deploy/')
-MEDIA_URL = '/uploads/'
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 TEMPLATE_LOADERS = (
     'app_namespace.Loader',

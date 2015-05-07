@@ -42,14 +42,14 @@
 {% if user.is_authenticated %}
 <aside id="widget-tools" class="widget">
   <div class="panel-heading">
-    {% trans "Tools" %}
+    {% trans "Tools"|upper  %}
   </div>
   <ul class="list-group">
     {% if perms.zinnia %}
     <li class="list-group-item">
       <a href="{% url 'admin:app_list' 'zinnia' %}" title="{% trans "Dashboard" %}">
         <span class="glyphicon glyphicon-book"></span>
-        {% trans "Dashboard"|upper%}
+        {% trans "Dashboard"%}
       </a>
     </li>
     {% endif %}
