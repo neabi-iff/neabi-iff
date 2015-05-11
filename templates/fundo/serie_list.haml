@@ -1,14 +1,20 @@
-- extends "base.html"
+- extends "zinnia/base.html"
 
 - load staticfiles
 - load bootstrap3
+- load zinnia
 
 - block extra_head
-
-- block container
-    -for serie in serie_list
-      %a{ href: "{% url 'documento-list' fundo.pk serie.pk %}"}
-          = serie
-      %br
+- block content
+  .container
+    - for serie in serie_list
+        {{serie_list.0.fundo.name }}
+      %blockquote.box-fundo
+        %h2
+          %a{ href: "{% url 'documento-list' serie.fundo.slug serie.slug %}"}
+            = serie.nome
+        %p
+          = serie.descricao
     -empty
-      %p Não possui documentos para as series do fundo no momento.
+      %blockquote.box-fundo
+        %p Não possui documentos para as series do fundo no momento.

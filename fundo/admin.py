@@ -1,23 +1,14 @@
 from django.contrib import admin
-from .models import Documento, Serie, Fundo, Pagina
+from .models import Documento, Serie, Fundo, Arquivo
 
-
-class PaginaInline(admin.StackedInline):
-    model = Pagina
-    extra = 0
+class ArquivoInline(admin.StackedInline):
+    model = Arquivo
 
 
 class DocumentoAdmin(admin.ModelAdmin):
-    inlines = [PaginaInline]
+    inlines = [ArquivoInline]
 
-
-class SerieAdmin(admin.ModelAdmin):
-    pass
-
-
-class FundoAdmin(admin.ModelAdmin):
-    pass
 
 admin.site.register(Documento, DocumentoAdmin)
-admin.site.register(Serie, SerieAdmin)
-admin.site.register(Fundo, FundoAdmin)
+admin.site.register(Serie)
+admin.site.register(Fundo)

@@ -13,34 +13,10 @@ class SerieList(ListView):
     model = Serie
 
     def get_queryset(self):
-        self.fundo = get_object_or_404(Fundo, id=self.kwargs['pk_fundo'])
-        return Serie.objects.filter(documento__fundo=self.fundo).distinct()
-
-    def get_context_data(self, **kwargs):
-        context = super(SerieList, self).get_context_data(**kwargs)
-        context['fundo'] = self.fundo
-        return context
+        return Serie.objects.filter(fundo__slug=self.kwargs['slug'])
 
 class DocumentoList(ListView):
     model = Documento
 
     def get_queryset(self):
-        self.fundo = get_object_or_404(Fundo, id=self.kwargs['pk_fundo'])
-        self.serie = get_object_or_404(Serie, id=self.kwargs['pk_serie'])
-        return Documento.objects.filter(fundo=self.fundo, serie=self.serie)
-
-    def get_context_data(self, **kwargs):
-        context = super(DocumentoList, self).get_context_data(**kwargs)
-        context['fundo'] = self.fundo
-        context['serie'] = self.serie
-        return context
-
-class DocumentoDetail(DetailView):
-    model = Documento
-
-    def get_object(self):
-        self.fundo = get_object_or_404(Fundo, id=self.kwargs['pk_fundo'])
-        self.serie = get_object_or_404(Serie, id=self.kwargs['pk_serie'])
-        self.documentos = Documento.objects.filter(fundo=self.fundo, serie=self.serie)
-        self.documento = get_object_or_404(self.documentos, pk=self.kwargs['pk'])
-        return self.documento
+        return Documento.objects.filter(serie__slug=self.kwargs['slug'])

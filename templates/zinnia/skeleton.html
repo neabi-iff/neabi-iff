@@ -62,10 +62,17 @@
             <div class="collapse navbar-collapse">
               <ul class="nav navbar-nav navbar-left">
               {% url 'zinnia:category_list' as category_list_url %}
-                <li {% if category_list_url in request.path %}class="active"{% endif %}><a href="{{ category_list_url }}" class="neabi" title="O Neabi">O Neabi</a></li>
+                <li {% if category_list_url in request.path %}class="active"{% endif %}>
+                  <a href="{{ category_list_url }}" class="neabi" title="O Neabi">O Neabi</a>
+                </li>
               {% url 'zinnia:author_list' as author_list_url %}
-                <li {% if author_list_url in request.path %}class="active"{% endif %}><a href="{{ author_list_url }}" class="publicacoes" title="O Neabi">Publicações</a></li>
-                <li ><a href="{{ category_list_url }}" class="acervo" title="O Neabi">O Acervo</a></li>
+                <li {% if author_list_url in request.path %}class="active"{% endif %}>
+                  <a href="{{ author_list_url }}" class="publicacoes" title="O Neabi">Publicações</a>
+                </li>
+              {% url 'fundo_list' as fundo_list_url %}
+                <li {% if fundo_list_url in request.path %}class="active"{% endif %}>
+                  <a href="{{ fundo_list_url }}" class="acervo" title="O Acervo">O Acervo</a>
+                </li>
                 <li><a href="{{ category_list_url }}" class="noticias" title="O Neabi">Notícias</a></li>
                 <li><a href="/neabi/categories/" class="contato" title="O Neabi">Contato</a></li>
 
@@ -114,7 +121,8 @@
     <div class="container">
       <div class="row">
         <div id="content" class="hfeed col-xs-12 col-sm-8 col-md-8 col-lg-8">
-          {% block breadcrumbs %}{% endblock %}
+          {% block breadcrumbs %}
+          {% endblock %}
           {% block content %}
           <div class="links">
             <h3>{% trans "Useful links" %}</h3>
