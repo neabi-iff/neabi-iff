@@ -278,3 +278,7 @@ blockquote.box-fundo h2{
 blockquote p{
     font-size: 15.5px;
 }
+
+blockquote.box-fundo .row{
+  margin-left: auto
+}

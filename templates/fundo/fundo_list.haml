@@ -1,4 +1,4 @@
-- extends "zinnia/base.html"
+- extends "fundo/base_fundo.html"
 
 - load staticfiles
 - load bootstrap3
@@ -10,7 +10,7 @@
       %blockquote.box-fundo
         .row
           - if fundo.imagem
-            .col-xs-5.col-sm-5.col-md-5.col-lg-5
+            .col-xs-5.col-sm-5.col-md-4.col-lg-4
               %img{ "src": "={fundo.imagem.url}", class: 'img-thumbnail img-responsive'}
           %h2
             %a{ href: "{% url 'serie-list' fundo.slug %}"}
@@ -19,6 +19,6 @@
               = fundo.biblioteca
           %p
             = fundo.descricao
-      -empty
-        %blockquote.box-fundo
-          %p Não tem Fundo cadastrado no momento.
+    -empty
+      %blockquote.box-fundo
+        %p Não tem Fundo cadastrado no momento.
