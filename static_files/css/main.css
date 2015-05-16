@@ -286,3 +286,19 @@ blockquote.box-fundo .row{
     background-color: transparent;
     border: 1px solid #EFBCA2;
 }
+
+.noticias-panel{
+  background-color: transparent;
+  padding-top: 0px;
+  padding-bottom: 15px;
+}
+
+.neabi-heading h1 {
+  color: #47280C;
+  font-family: 'BreeSerifRegular';
+  margin-bottom: -5px;
+}
+h1.noticias{
+  color: #CC8E91;
+  margin-top: auto;
+}
