@@ -125,6 +125,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'zinnia.context_processors.version',
+    'core.context_processors.social',
 )
 
 BOOTSTRAP3 = {

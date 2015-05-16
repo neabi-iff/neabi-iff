@@ -16,9 +16,11 @@ def get_proximo_numero_id(self, model):
 
     return numero_id
 
+
 def pasta_fundo_uploads(instance, filename):
     return 'uploads/neabi/fundo_{0}/serie_{1}/doc_{2}/{3}'.format(instance.serie.fundo.numero_id,\
      instance.serie.numero_id, instance.numero_id, filename)
+
 
 def pasta_fundo_uploads_images(instance, filename):
     return 'uploads/neabi/fundo_{0}/images/{1}'.format(instance.numero_id,\
@@ -136,6 +138,19 @@ class Documento(models.Model):
         if not self.numero_id:
             self.numero_id = get_proximo_numero_id(self, Documento)
         return super(Documento, self).save(*args, **kwargs)
+
+
+class Social(models.Model):
+    facebook = models.URLField(blank=True)
+    twitter = models.URLField(blank=True)
+    google_plus = models.URLField(blank=True)
+
+    class Meta:
+        verbose_name = "Social"
+        verbose_name_plural = "Sociais"
+
+    def __unicode__(self):
+        return u"%d" % (self.id)
 
 
 # SIGNALS
