@@ -7,3 +7,25 @@ footer{
   width:100%;
   height:100px;
 }
+
+.neabi-heading h1{
+    color: #47280C;
+    font-family: 'BreeSerifRegular';
+    margin-bottom: -5px;
+}
+
+.social p{
+    font-size: 15px;
+}
+h1.contato{
+    color:#DC8766;
+}
+h1.publicacoes{
+    color:#BE4F27;
+}
+h1.acervo{
+    color:#806A63;
+}
+.table{
+    font-size: 15px;
+}

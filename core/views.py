@@ -1,28 +1,25 @@
-from django.views.generic.base import TemplateView
-from django.views.generic.list import ListView
-from fundo.models import Fundo
-from core.models import Contato, Acervo, SobreNeabi
+from django.views.generic.detail import DetailView
+from django.views.generic import ListView
+from core.models import Neabi, Contato, Publicacoes
 
+class NeabiDetail(DetailView):
+    model = Neabi
 
-class HomePageView(TemplateView):
-    template_name = "core/home_page.html"
+    def get_object(self):
+        try:
+            return Neabi.objects.first()
+        except Neabi.DoesNotExist:
+            raise Http404
 
-    def get_context_data(self, **kwargs):
-        context = super(HomePageView, self).get_context_data(**kwargs)
-        context['fundos'] = Fundo.objects.all()
-        return context
-
-
-class Contato(ListView):
+class ContatoDetail(DetailView):
     model = Contato
-    template_name = "core/contato_list.html"
 
+    def get_object(self):
+        try:
+            return Contato.objects.first()
+        except Contato.DoesNotExist:
+            raise Http404
 
-class Acervo(ListView):
-    model = Acervo
-    template_name = "core/acervo_list.html"
-
-
-class SobreNeabi(ListView):
-    model = SobreNeabi
-    template_name = "core/sobre_neabi_list.html"
+class PublicacoesList(ListView):
+    model = Publicacoes
+    paginate_by = 10

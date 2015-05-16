@@ -1,57 +1,66 @@
-- extends "fundo/base_fundo.html"
+- extends "base_site.html"
 
 - load i18n zinnia
 - load staticfiles
 - load bootstrap3
+- load bootstrap_pagination
+
+
 - block content
-  .container
-    - for documento in documento_list
-      %blockquote.box-fundo
-        %h2
-          = documento.titulo
-          %button{'class':'btn btn-orange', 'type':'button','data-toggle':'collapse', 'data-target':'#{{documento.numero_id}}', 'aria-expanded':'false', 'aria-controls':'{{documento.numero_id}}'}
-            Mais detalhes
-          %a{'class':'btn btn-orange', href: "{{ documento.arquivo.arquivo.url}}"}
-            Acessar arquivo
-        %div.collapse{'id':'{{documento.numero_id}}'}
-          %div.well
-            %table.table.table-hover
-              %tr
-                %th Código de Referência:
-                %td
-                  = documento.codigo_referencia
-              %tr
-                %th Notas de Conservação:
-                %td
-                  = documento.nota_conservacao
-              %tr
-                %th Data do Documento:
-                %td
-                  = documento.data
-              %tr
-                %th Dimensão de Suporte:
-                %td
-                  = documento.dimensao_suporte
-              %tr
-                %th Nível de Descrição:
-                %td
-                  = documento.nivel_descricao
-              %tr
-                %th Nome(s) do(s) Autor(es):
-                %td
-                  = documento.autor
-              %tr
-                %th Ámbito e Conteúdo:
-                %td
-                  = documento.ambito_conteudo
-              %tr
-                %th Condição de Acesso:
-                %td
-                  = documento.condicao_acesso
-              %tr
-                %th Notas Gerais:
-                %td
-                  = documento.nota_gerais
-    -empty
-      %blockquote.box-fundo
-        %p Não possui documentos para esta série.
+  .panel.neabi-panel
+    .panel-heading.neabi-heading
+      %h1.acervo Documentos da Série {{ documento_list.0.serie.nome}}
+    .panel-body
+      - for documento in documento_list
+        %blockquote.box-fundo
+          %h2
+            = documento.titulo
+            %button{'class':'btn btn-orange', 'type':'button','data-toggle':'collapse', 'data-target':'#{{documento.numero_id}}', 'aria-expanded':'false', 'aria-controls':'{{documento.numero_id}}'}
+              Mais detalhes
+            %a{'class':'btn btn-orange', href: "{{ documento.arquivo.url}}"}
+              Acessar arquivo
+          %div.collapse{'id':'{{documento.numero_id}}'}
+            %div.well
+              %table.table.table-hover
+                %tr
+                  %th Código de Referência:
+                  %td
+                    = documento.codigo_referencia
+                %tr
+                  %th Notas de Conservação:
+                  %td
+                    = documento.nota_conservacao
+                %tr
+                  %th Data do Documento:
+                  %td
+                    = documento.data
+                %tr
+                  %th Dimensão de Suporte:
+                  %td
+                    = documento.dimensao_suporte
+                %tr
+                  %th Nível de Descrição:
+                  %td
+                    = documento.nivel_descricao
+                %tr
+                  %th Nome(s) do(s) Autor(es):
+                  %td
+                    = documento.autor
+                %tr
+                  %th Ámbito e Conteúdo:
+                  %td
+                    = documento.ambito_conteudo|safe
+                %tr
+                  %th Condição de Acesso:
+                  %td
+                    = documento.condicao_acesso
+                %tr
+                  %th Notas Gerais:
+                  %td
+                    = documento.nota_gerais
+      -empty
+        %blockquote.box-fundo
+          %p Não possui documentos para esta série.
+      - if is_paginated
+        .text-center
+          - bootstrap_paginate page_obj range=5

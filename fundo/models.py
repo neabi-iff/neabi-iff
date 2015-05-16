@@ -2,6 +2,7 @@
 from django.db import models
 import hashlib
 from datetime import datetime
+from tinymce.models import HTMLField
 
 
 def get_proximo_numero_id(self, model):
@@ -16,8 +17,8 @@ def get_proximo_numero_id(self, model):
     return numero_id
 
 def pasta_fundo_uploads(instance, filename):
-    return 'uploads/neabi/fundo_{0}/serie_{1}/doc_{2}/{3}'.format(instance.documento.serie.fundo.numero_id,\
-     instance.documento.serie.numero_id, instance.documento.numero_id, filename)
+    return 'uploads/neabi/fundo_{0}/serie_{1}/doc_{2}/{3}'.format(instance.serie.fundo.numero_id,\
+     instance.serie.numero_id, instance.numero_id, filename)
 
 def pasta_fundo_uploads_images(instance, filename):
     return 'uploads/neabi/fundo_{0}/images/{1}'.format(instance.numero_id,\
@@ -27,8 +28,8 @@ def pasta_fundo_uploads_images(instance, filename):
 class Fundo(models.Model):
     nome = models.CharField(max_length=255, unique=True)
     biblioteca = models.CharField(max_length=255)
-    descricao = models.TextField("Descrição")
-    imagem = models.ImageField(upload_to=pasta_fundo_uploads_images,  blank=True)
+    descricao = HTMLField("Descrição")
+    imagem = models.ImageField(upload_to=pasta_fundo_uploads_images, blank=True)
     slug = models.SlugField(blank=True, max_length=255, editable=False)
     numero_id = models.CharField(max_length=255, blank=True, editable=False)
     criado_em = models.DateField(auto_now_add=True)
@@ -47,7 +48,7 @@ class Fundo(models.Model):
 
 class Serie(models.Model):
     nome = models.CharField(max_length=255, unique=True)
-    descricao = models.TextField("Descrição")
+    descricao = HTMLField("Descrição")
     fundo = models.ForeignKey("Fundo")
     slug = models.SlugField(blank=True, max_length=255, editable=False)
     numero_id = models.CharField(max_length=255, blank=True, editable=False)
@@ -74,13 +75,14 @@ class Documento(models.Model):
     dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=255)
     nivel_descricao = models.CharField('Nível de Descrição', max_length=255)
     autor = models.CharField('Nome(s) do(s) Autor(es)', max_length=255)
-    ambito_conteudo = models.TextField('Ámbito e Conteúdo')
+    ambito_conteudo = HTMLField('Ámbito e Conteúdo')
     condicao_acesso = models.CharField('Condição de Acesso', max_length=255)
     nota_gerais = models.CharField('Notas Gerais', max_length=255)
     serie = models.ForeignKey("Serie", verbose_name='Série')
     slug = models.SlugField(blank=True, max_length=255 , editable= False)
     numero_id = models.CharField(max_length=255, blank=True, editable=False)
     criado_em = models.DateField(auto_now_add=True)
+    arquivo = models.FileField(upload_to=pasta_fundo_uploads, blank=True)
 
     class Meta:
         verbose_name = "Documento"
@@ -93,22 +95,6 @@ class Documento(models.Model):
         if not self.numero_id:
             self.numero_id = get_proximo_numero_id(self, Documento)
         return super(Documento, self).save(*args, **kwargs)
-
-
-
-class Arquivo(models.Model):
-    arquivo = models.FileField(upload_to=pasta_fundo_uploads)
-    documento = models.OneToOneField("Documento")
-
-    class Meta:
-        verbose_name = "Arquivo"
-        verbose_name_plural = "Arquivos"
-
-    def __unicode__(self):
-        return "%s" % (self.arquivo.name)
-
-
-
 
 
 # SIGNALS

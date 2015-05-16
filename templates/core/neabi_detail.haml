@@ -1,0 +1,11 @@
+- extends "base_site.html"
+- load i18n staticfiles
+- load zinnia
+
+
+- block content
+  .panel.neabi-panel
+    .panel-heading.neabi-heading
+      %h1 O NEABI
+    .panel-body
+      {{ object.sobre|safe }}

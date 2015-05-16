@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'tagging',
     'django_nose',
     'bootstrap3',
+    'bootstrap_pagination',
     'core',
     'fundo',
 )

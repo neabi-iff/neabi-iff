@@ -1,19 +1,26 @@
-- extends "fundo/base_fundo.html"
+- extends "base_site.html"
 
 - load staticfiles
 - load bootstrap3
 - load zinnia
+- load bootstrap_pagination
 
-- block extra_head
 - block content
-  .container
-    - for serie in serie_list
-      %blockquote.box-fundo
-        %h2
-          %a{ href: "{% url 'documento-list' serie.fundo.slug serie.slug %}"}
-            = serie.nome
-        %p
-          = serie.descricao
-    -empty
-      %blockquote.box-fundo
-        %p Não possui documentos para as series do fundo no momento.
+  .panel.neabi-panel
+    .panel-heading.neabi-heading
+      %h1.acervo Séries do Acervo {{ serie_list.0.fundo.nome}}
+    .panel-body
+      - for serie in serie_list
+        %blockquote.box-fundo
+          %h2
+            %a{ href: "{% url 'documento-list' serie.fundo.slug serie.slug %}"}
+              = serie.nome
+          %p
+            = serie.descricao|safe
+      -empty
+        %blockquote.box-fundo
+          %p Não possui documentos para as series do fundo no momento.
+
+      - if is_paginated
+        .text-center
+          - bootstrap_paginate page_obj range=5

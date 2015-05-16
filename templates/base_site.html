@@ -1,9 +1,14 @@
 {% extends "base_default.html" %}
 {% load i18n staticfiles %}
+{% load zinnia %}
+{% block link %}
+  <link rel="stylesheet" href="{% static "css/base_fundo.css" %}" />
+{% endblock link %}
 
 {% block layout_content%}
-  <div id="content" class="hfeed col-xs-12 col-sm-8 col-md-8 col-lg-8">
+  <div id="content" class="hfeed col-xs-12 col-sm-12 col-md-12 col-lg-12">
     {% block breadcrumbs %}
+      {% zinnia_breadcrumbs "Notícias" %}
     {% endblock %}
     {% block content %}
     <div class="links">
@@ -26,9 +31,5 @@
       {% include "zinnia/tags/search_form.html" %}
     </div>
     {% endblock content %}
-  </div>
-  <div id="sidebar" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-    {% block sidebar %}
-    {% endblock sidebar %}
   </div>
 {% endblock layout_content%}

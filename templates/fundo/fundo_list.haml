@@ -1,24 +1,30 @@
-- extends "fundo/base_fundo.html"
+- extends "base_site.html"
 
 - load staticfiles
 - load bootstrap3
+- load bootstrap_pagination
 
-- block extra_head
 - block content
-  .container
-    - for fundo in fundo_list
-      %blockquote.box-fundo
-        .row
-          - if fundo.imagem
-            .col-xs-5.col-sm-5.col-md-4.col-lg-4
-              %img{ "src": "={fundo.imagem.url}", class: 'img-thumbnail img-responsive'}
-          %h2
-            %a{ href: "{% url 'serie-list' fundo.slug %}"}
-              = fundo.nome
-            %small
-              = fundo.biblioteca
-          %p
-            = fundo.descricao
-    -empty
-      %blockquote.box-fundo
-        %p Não tem Fundo cadastrado no momento.
+  .panel.neabi-panel
+    .panel-heading.neabi-heading
+      %h1.acervo ACERVOS
+    .panel-body
+      - for fundo in fundo_list
+        %blockquote.box-fundo
+          .row
+            - if fundo.imagem
+              .col-xs-5.col-sm-5.col-md-4.col-lg-4
+                %img{ "src": "={fundo.imagem.url}", class: 'img-thumbnail img-responsive'}
+            %h2
+              %a{ href: "{% url 'serie-list' fundo.slug %}"}
+                = fundo.nome
+              %small
+                = fundo.biblioteca
+            %p
+              = fundo.descricao|safe
+      -empty
+        %blockquote.box-fundo
+          %p Não tem Fundo cadastrado no momento.
+      - if is_paginated
+        .text-center
+          - bootstrap_paginate page_obj range=5

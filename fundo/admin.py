@@ -1,14 +1,15 @@
 from django.contrib import admin
-from .models import Documento, Serie, Fundo, Arquivo
+from .models import Documento, Serie, Fundo
 
-class ArquivoInline(admin.StackedInline):
-    model = Arquivo
-
-
+@admin.register(Documento)
 class DocumentoAdmin(admin.ModelAdmin):
-    inlines = [ArquivoInline]
+    list_display = ('titulo','codigo_referencia','nota_conservacao','data','autor','condicao_acesso','nota_gerais',\
+        'serie', 'arquivo')
 
+@admin.register(Serie)
+class SerieAdmin(admin.ModelAdmin):
+    list_display = ('nome','fundo', 'descricao')
 
-admin.site.register(Documento, DocumentoAdmin)
-admin.site.register(Serie)
-admin.site.register(Fundo)
+@admin.register(Fundo)
+class FundoAdmin(admin.ModelAdmin):
+    list_display = ('nome','biblioteca','imagem', 'descricao')

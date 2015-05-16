@@ -1,43 +1,41 @@
+# -*- coding: utf-8 -*-
 from django.db import models
+from tinymce.models import HTMLField
 
 
 class Contato(models.Model):
-    descricao = models.TextField()
-    email = models.EmailField()
-    telefone = models.CharField(max_length=20)
-    facebook = models.URLField()
+    descricao = HTMLField("Descrição", blank=True)
+    email = models.EmailField(blank=True)
+    telefone = models.CharField(max_length=255, blank=True)
+    facebook = models.URLField(blank=True)
+    twitter = models.URLField(blank=True)
+    google_plus = models.URLField(blank=True)
 
     class Meta:
         verbose_name = 'Contato'
         verbose_name_plural = 'Contatos'
 
     def __unicode__(self):
-        return '%s' % (self.descricao)
+        return '%s' % (self.id)
 
-    # def save(self, *args, **kwargs):
-    #     if Contato.objects.count() == 0:
-    #         return super(Contato, self).save(*args, **kwargs)
-
-
-class Acervo(models.Model):
-    nome = models.CharField(max_length=1024)
-    imagem = models.ImageField()
-    link = models.URLField()
-
-    class Meta:
-        verbose_name = 'Acervo'
-        verbose_name_plural = 'Acervos'
-
-    def __unicode__(self):
-        return '%s' % (self.nome)
-
-
-class SobreNeabi(models.Model):
-    sobre = models.TextField()
+class Neabi(models.Model):
+    sobre = HTMLField("Sobre o Neabi")
 
     class Meta:
         verbose_name = 'Sobre o Neabi'
         verbose_name_plural = 'Sobre o Neabi'
 
     def __unicode__(self):
-        return '%s' % (self.sobre)
+        return '%d' % (self.id)
+
+class Publicacoes(models.Model):
+    titulo = models.CharField(max_length=255)
+    descricao = HTMLField("Descrição")
+    arquivo = models.FileField(upload_to='uploads/neabi/publicacoes/', blank=True)
+
+    class Meta:
+        verbose_name = 'Plubicação'
+        verbose_name_plural = 'Publicações'
+
+    def __unicode__(self):
+        return '%s' % (self.titulo)

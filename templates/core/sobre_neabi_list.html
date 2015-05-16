@@ -1,9 +1,0 @@
-{% extends "core/cabecalho.html" %}
-
-{% block content %}
-    <p class="bebas" id="o-neabi">O NEABI</p><br>
-
-    {%for neabi in sobreneabi_list %}
-      <p id="text-neabi">{{ neabi.sobre }}</p>
-    {% endfor %}
-{% endblock %}
