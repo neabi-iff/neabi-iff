@@ -2,27 +2,17 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import fundo.models
+import core.models
+import tinymce.models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('core', '0004_auto_20150515_1842'),
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Arquivo',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('arquivo', models.FileField(upload_to=fundo.models.pasta_fundo_uploads)),
-            ],
-            options={
-                'verbose_name': 'Pagina',
-                'verbose_name_plural': 'Paginas',
-            },
-            bases=(models.Model,),
-        ),
         migrations.CreateModel(
             name='Documento',
             fields=[
@@ -34,10 +24,13 @@ class Migration(migrations.Migration):
                 ('dimensao_suporte', models.CharField(max_length=255, verbose_name=b'Dimens\xc3\xa3o e Suporte')),
                 ('nivel_descricao', models.CharField(max_length=255, verbose_name=b'N\xc3\xadvel de Descri\xc3\xa7\xc3\xa3o')),
                 ('autor', models.CharField(max_length=255, verbose_name=b'Nome(s) do(s) Autor(es)')),
-                ('ambito_conteudo', models.TextField(verbose_name=b'\xc3\x81mbito e Conte\xc3\xbado')),
+                ('ambito_conteudo', tinymce.models.HTMLField(verbose_name=b'\xc3\x81mbito e Conte\xc3\xbado')),
                 ('condicao_acesso', models.CharField(max_length=255, verbose_name=b'Condi\xc3\xa7\xc3\xa3o de Acesso')),
                 ('nota_gerais', models.CharField(max_length=255, verbose_name=b'Notas Gerais')),
                 ('slug', models.SlugField(max_length=255, editable=False, blank=True)),
+                ('numero_id', models.CharField(max_length=255, editable=False, blank=True)),
+                ('criado_em', models.DateField(auto_now_add=True)),
+                ('arquivo', models.FileField(upload_to=core.models.pasta_fundo_uploads, blank=True)),
             ],
             options={
                 'verbose_name': 'Documento',
@@ -51,8 +44,11 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nome', models.CharField(unique=True, max_length=255)),
                 ('biblioteca', models.CharField(max_length=255)),
-                ('descricao', models.TextField(verbose_name=b'Descri\xc3\xa7\xc3\xa3o')),
+                ('descricao', tinymce.models.HTMLField(verbose_name=b'Descri\xc3\xa7\xc3\xa3o')),
+                ('imagem', models.ImageField(upload_to=core.models.pasta_fundo_uploads_images, blank=True)),
                 ('slug', models.SlugField(max_length=255, editable=False, blank=True)),
+                ('numero_id', models.CharField(max_length=255, editable=False, blank=True)),
+                ('criado_em', models.DateField(auto_now_add=True)),
             ],
             options={
                 'verbose_name': 'Fundo',
@@ -65,9 +61,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nome', models.CharField(unique=True, max_length=255)),
-                ('descricao', models.TextField(verbose_name=b'Descri\xc3\xa7\xc3\xa3o')),
+                ('descricao', tinymce.models.HTMLField(verbose_name=b'Descri\xc3\xa7\xc3\xa3o')),
                 ('slug', models.SlugField(max_length=255, editable=False, blank=True)),
-                ('fundo', models.ForeignKey(to='fundo.Fundo')),
+                ('numero_id', models.CharField(max_length=255, editable=False, blank=True)),
+                ('criado_em', models.DateField(auto_now_add=True)),
+                ('fundo', models.ForeignKey(to='core.Fundo')),
             ],
             options={
                 'verbose_name': 'S\xe9rie',
@@ -78,13 +76,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='documento',
             name='serie',
-            field=models.ForeignKey(verbose_name=b'S\xc3\xa9rie', to='fundo.Serie'),
+            field=models.ForeignKey(verbose_name=b'S\xc3\xa9rie', to='core.Serie'),
             preserve_default=True,
         ),
-        migrations.AddField(
-            model_name='arquivo',
-            name='documento',
-            field=models.OneToOneField(to='fundo.Documento'),
+        migrations.AlterField(
+            model_name='publicacoes',
+            name='arquivo',
+            field=models.FileField(upload_to=b'uploads/neabi/publicacoes/', blank=True),
             preserve_default=True,
         ),
     ]

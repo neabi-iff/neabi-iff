@@ -1,6 +1,28 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+import hashlib
+from datetime import datetime
 from tinymce.models import HTMLField
+
+
+def get_proximo_numero_id(self, model):
+    ano_corrente = datetime.today().year
+    try:
+        ultimo_numero_id_ano = model.objects.filter(criado_em__year=ano_corrente).latest('id')
+        proximo_numero_id = int(ultimo_numero_id_ano.id) + 1 # 20011-000001
+    except model.DoesNotExist:
+        proximo_numero_id = 1
+    numero_id = "%s-%05d" % (ano_corrente, proximo_numero_id)
+
+    return numero_id
+
+def pasta_fundo_uploads(instance, filename):
+    return 'uploads/neabi/fundo_{0}/serie_{1}/doc_{2}/{3}'.format(instance.serie.fundo.numero_id,\
+     instance.serie.numero_id, instance.numero_id, filename)
+
+def pasta_fundo_uploads_images(instance, filename):
+    return 'uploads/neabi/fundo_{0}/images/{1}'.format(instance.numero_id,\
+        filename)
 
 
 class Contato(models.Model):
@@ -18,6 +40,7 @@ class Contato(models.Model):
     def __unicode__(self):
         return '%s' % (self.id)
 
+
 class Neabi(models.Model):
     sobre = HTMLField("Sobre o Neabi")
 
@@ -27,6 +50,7 @@ class Neabi(models.Model):
 
     def __unicode__(self):
         return '%d' % (self.id)
+
 
 class Publicacoes(models.Model):
     titulo = models.CharField(max_length=255)
@@ -39,3 +63,94 @@ class Publicacoes(models.Model):
 
     def __unicode__(self):
         return '%s' % (self.titulo)
+
+
+class Fundo(models.Model):
+    nome = models.CharField(max_length=255, unique=True)
+    biblioteca = models.CharField(max_length=255)
+    descricao = HTMLField("Descrição")
+    imagem = models.ImageField(upload_to=pasta_fundo_uploads_images, blank=True)
+    slug = models.SlugField(blank=True, max_length=255, editable=False)
+    numero_id = models.CharField(max_length=255, blank=True, editable=False)
+    criado_em = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Fundo"
+        verbose_name_plural = "Fundos"
+
+    def __unicode__(self):
+        return u"%s - (%s)" %(self.nome, self.numero_id)
+
+    def save(self, *args, **kwargs):
+        if not self.numero_id:
+            self.numero_id = get_proximo_numero_id(self, Fundo)
+        return super(Fundo, self).save(*args, **kwargs)
+
+
+class Serie(models.Model):
+    nome = models.CharField(max_length=255, unique=True)
+    descricao = HTMLField("Descrição")
+    fundo = models.ForeignKey("Fundo")
+    slug = models.SlugField(blank=True, max_length=255, editable=False)
+    numero_id = models.CharField(max_length=255, blank=True, editable=False)
+    criado_em = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = u"Série"
+        verbose_name_plural = u"Séries"
+
+    def __unicode__(self):
+        return u"%s - (%s)" %(self.nome, self.numero_id)
+
+    def save(self, *args, **kwargs):
+        if not self.numero_id:
+            self.numero_id = get_proximo_numero_id(self, Serie)
+        return super(Serie, self).save(*args, **kwargs)
+
+
+class Documento(models.Model):
+    codigo_referencia = models.CharField('Código de Referência', max_length=255)
+    nota_conservacao = models.CharField('Notas de Conservação', max_length=255)
+    titulo = models.CharField('Título', max_length=255, unique=True)
+    data = models.DateField('Data do Documento')
+    dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=255)
+    nivel_descricao = models.CharField('Nível de Descrição', max_length=255)
+    autor = models.CharField('Nome(s) do(s) Autor(es)', max_length=255)
+    ambito_conteudo = HTMLField('Ámbito e Conteúdo')
+    condicao_acesso = models.CharField('Condição de Acesso', max_length=255)
+    nota_gerais = models.CharField('Notas Gerais', max_length=255)
+    serie = models.ForeignKey("Serie", verbose_name='Série')
+    slug = models.SlugField(blank=True, max_length=255 , editable= False)
+    numero_id = models.CharField(max_length=255, blank=True, editable=False)
+    criado_em = models.DateField(auto_now_add=True)
+    arquivo = models.FileField(upload_to=pasta_fundo_uploads, blank=True)
+
+    class Meta:
+        verbose_name = "Documento"
+        verbose_name_plural = "Documentos"
+
+    def __unicode__(self):
+        return u"%s (%s)" % (self.titulo, self.numero_id)
+
+    def save(self, *args, **kwargs):
+        if not self.numero_id:
+            self.numero_id = get_proximo_numero_id(self, Documento)
+        return super(Documento, self).save(*args, **kwargs)
+
+
+# SIGNALS
+from django.db.models import signals
+from django.template.defaultfilters import slugify
+
+def create_slug(signal, instance, sender, **kwargs):
+    """Este signal gera um slug automaticamente."""
+    try:
+        titulo = instance.titulo
+    except:
+        titulo = instance.nome
+    slug = slugify(titulo)
+    instance.slug = slug
+
+signals.pre_save.connect(create_slug, sender=Documento)
+signals.pre_save.connect(create_slug, sender=Fundo)
+signals.pre_save.connect(create_slug, sender=Serie)

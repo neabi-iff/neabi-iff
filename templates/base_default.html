@@ -79,26 +79,6 @@
                 <li {% if contato_detail_url in request.path %}class="active"{% endif %}>
                   <a href="{{contato_detail_url}}" class="contato" title="Contato">Contato</a>
                 </li>
-
-                <!-- {% url 'zinnia:category_list' as category_list_url %}
-                <li {% if category_list_url in request.path %}class="active"{% endif %}>
-                  <a href="{{ category_list_url }}" title="{% trans "Category list" %}">
-                    {% trans "Categories" %}
-                    col-xs-12 col-sm-9 col-md-9 col-lg-10
-                  </a>
-                </li> -->
-                <!-- {% url 'zinnia:author_list' as author_list_url %}
-                <li {% if author_list_url in request.path %}class="active"{% endif %}>
-                  <a href="{{ author_list_url }}" title="{% trans "Author list" %}">
-                    {% trans "Authors" %}
-                  </a>
-                </li>
-                {% url 'zinnia:tag_list' as tag_list_url %}
-                <li {% if tag_list_url in request.path %}class="active"{% endif %}>
-                  <a href="{{ tag_list_url }}" title="{% trans "Tag list" %}">
-                    {% trans "Tags" %}
-                  </a>
-                </li> -->
                 <li class="divider-vertical"></li>
               </ul>
                 <form method="get" action="{% url 'zinnia:entry_search' %}" class="navbar-form navbar-left form-search">
@@ -111,7 +91,6 @@
               </div>
             </div>
           </div>
-          <!--   <hr class="linha-button"/> -->
             <div class="social navbar-right">
               <a href=""><img src="{% static "img/facebook.png" %}"></a>
               <a href=""><img src="{% static "img/twitter.png" %}"></a>

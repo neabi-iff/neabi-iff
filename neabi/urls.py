@@ -11,7 +11,6 @@ urlpatterns = patterns('',
     url(r'^comments/', include('django_comments.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^tinymce/zinnia/', include('zinnia_tinymce.urls')),
-    url(r'^fundo/', include('fundo.urls')),
     url(r'^neabi/', include('core.urls')),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

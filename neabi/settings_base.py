@@ -51,7 +51,6 @@ INSTALLED_APPS = (
     'bootstrap3',
     'bootstrap_pagination',
     'core',
-    'fundo',
 )
 
 MIDDLEWARE_CLASSES = (
