@@ -302,3 +302,14 @@ h1.noticias{
   color: #CC8E91;
   margin-top: auto;
 }
+
+.panel-destaque-header{
+  padding-bottom: 0px;
+}
+.panel-destaque-body{
+  padding-top: 0px;
+}
+.panel-patrocinadores-header{
+  padding-top: 0px;
+  padding-bottom: 0px;
+}

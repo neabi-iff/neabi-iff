@@ -29,7 +29,7 @@ class SerieAdmin(admin.ModelAdmin):
 
 @admin.register(Fundo)
 class FundoAdmin(admin.ModelAdmin):
-    list_display = ('nome','biblioteca','imagem', 'descricao')
+    list_display = ('nome','biblioteca','imagem', 'destaque','descricao')
 
 
 @admin.register(Social)

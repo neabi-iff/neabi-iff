@@ -6,18 +6,27 @@
 {% endblock %}
 
 {% block sidebar %}
-<aside>
-  <div>
-    <center><a href=""><img src="{% static "img/tag.png" %}"></a></center>
-    <div>
-      <center>
-        {% for patrocinador in patrocinador_list %}
-          <a href="{{ patrocinador.link }}"><img src=""></a>
-        {% endfor %}
-      </center>
+{% if destaque_acervo %}
+  <aside>
+    <div class="panel-heading panel-destaque-header">
+      ACERVO DESTAQUE
     </div>
-  </div>
-</aside>
+      {% url 'fundo_list' as fundo_list_url %}
+      <div class="panel-body panel-destaque-body">
+        <a href="{{ fundo_list_url }}" title="{{destaque_acervo.nome}}"><img src="{{destaque_acervo.imagem.url}}"></a>
+        {% if patrocinadores %}
+          <div class="panel-heading panel-patrocinadores-header">
+            PATROCINADORES
+          </div>
+          <div class="panel-body panel-destaque-body">
+            {% for patrocinador in patrocinadores %}
+              <a href="{{ patrocinador.link }}" title="{{patrocinador.nome}}"><img src="{{patrocinador.imagem.url}}"></a>
+            {% endfor %}
+          </div>
+        {%endif%}
+      </div>
+  </aside>
+{% endif %}
 <aside id="widget-recents" class="widget">
   <div class="panel-heading">
     NOTÍCIAS RECENTES
