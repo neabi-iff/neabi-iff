@@ -1,22 +1,21 @@
 {% extends "zinnia:zinnia/base.html" %}
-{% load zinnia i18n %}
+{% load zinnia i18n staticfiles %}
 
 {% block breadcrumbs %}
   {% zinnia_breadcrumbs "Notícias" %}
 {% endblock %}
 
 {% block sidebar %}
-<aside id="widget-welcome" class="widget">
-  <div class="panel-heading">
-    {% trans "Welcome!" %}
-  </div>
-  <div class="panel-body">
-    <p>
-      {% trans "This simple theme is the default appearance of Zinnia." %}
-    </p>
-    <p>
-      {% trans "Don't hesitate to override the template <strong>zinnia/base.html</strong> to start <a href='http://docs.django-blog-zinnia.com/en/latest/how-to/customize_look_and_feel.html'>customizing your Weblog</a>." %}
-    </p>
+<aside>
+  <div>
+    <center><a href=""><img src="{% static "img/tag.png" %}"></a></center>
+    <div>
+      <center>
+        {% for patrocinador in patrocinador_list %}
+          <a href="{{ patrocinador.link }}"><img src=""></a>
+        {% endfor %}
+      </center>
+    </div>
   </div>
 </aside>
 <aside id="widget-recents" class="widget">
