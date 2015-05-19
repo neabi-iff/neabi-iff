@@ -176,6 +176,7 @@ class Patrocinador(models.Model):
     nome = models.CharField(max_length=500)
     link = models.URLField(blank=True)
     imagem = models.ImageField(upload_to="uploads/neabi/patrocinadores/", blank=True)
+    acervo = models.ForeignKey('Fundo')
 
     class Meta:
         verbose_name = "Patrocinador"

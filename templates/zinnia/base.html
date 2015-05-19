@@ -19,7 +19,7 @@
             PATROCINADORES
           </div>
           <div class="panel-body panel-destaque-body">
-            {% for patrocinador in patrocinadores %}
+            {% for patrocinador in patrocinadores%}
               <a href="{{ patrocinador.link }}" title="{{patrocinador.nome}}"><img src="{{patrocinador.imagem.url}}"></a>
             {% endfor %}
           </div>

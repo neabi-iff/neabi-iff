@@ -126,7 +126,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'zinnia.context_processors.version',
     'core.context_processors.social',
-    'core.context_processors.patrocinadores',
     'core.context_processors.destaque_acervo',
 )
 
