@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Neabi, Contato, Publicacoes, Documento, Serie, Fundo, Social
+from .models import Neabi, Contato, Publicacoes, Documento, Serie, Fundo, Social, Patrocinador
 
 @admin.register(Contato)
 class ContatoAdmin(admin.ModelAdmin):
@@ -31,6 +31,12 @@ class SerieAdmin(admin.ModelAdmin):
 class FundoAdmin(admin.ModelAdmin):
     list_display = ('nome','biblioteca','imagem', 'descricao')
 
+
 @admin.register(Social)
 class SocialAdmin(admin.ModelAdmin):
     list_display = ('id','facebook','twitter', 'google_plus')
+
+
+@admin.register(Patrocinador)
+class PatrocinadorAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'link', 'imagem')
