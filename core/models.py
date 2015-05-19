@@ -27,6 +27,15 @@ def pasta_fundo_uploads_images(instance, filename):
         filename)
 
 
+from django.core.exceptions import ValidationError
+
+def validar_maximo_uma_instancia(obj):
+    model = obj.__class__
+    if (model.objects.count() > 0 and
+            obj.id != model.objects.get().id):
+        raise ValidationError("Só pode criar uma instância de %s." % model.__name__)
+
+
 class Contato(models.Model):
     descricao = HTMLField("Descrição", blank=True)
     email = models.EmailField(blank=True)
@@ -42,6 +51,9 @@ class Contato(models.Model):
     def __unicode__(self):
         return '%s' % (self.id)
 
+    def clean(self):
+        validar_maximo_uma_instancia(self)
+
 
 class Neabi(models.Model):
     sobre = HTMLField("Sobre o Neabi")
@@ -52,6 +64,9 @@ class Neabi(models.Model):
 
     def __unicode__(self):
         return '%d' % (self.id)
+
+    def clean(self):
+        validar_maximo_uma_instancia(self)
 
 
 class Publicacoes(models.Model):
@@ -151,6 +166,22 @@ class Social(models.Model):
 
     def __unicode__(self):
         return u"%d" % (self.id)
+
+    def clean(self):
+        validar_maximo_uma_instancia(self)
+
+
+class Patrocinador(models.Model):
+    nome = models.CharField(max_length=500)
+    link = models.URLField(blank=True)
+    imagem = models.ImageField(upload_to="", blank=True)
+
+    class Meta:
+        verbose_name = "Patrocinador"
+        verbose_name_plural = "Patrocinadores"
+
+    def __unicode__(self):
+        return u"%s" % (self.nome)
 
 
 # SIGNALS
