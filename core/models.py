@@ -133,10 +133,10 @@ class Documento(models.Model):
     data = models.DateField('Data do Documento')
     dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=255)
     nivel_descricao = models.CharField('Nível de Descrição', max_length=255)
-    autor = models.CharField('Nome(s) do(s) Autor(es)', max_length=255)
+    autor = models.CharField('Nome(s) do(s) Produtor(es)', max_length=255)
     ambito_conteudo = HTMLField('Ámbito e Conteúdo')
     condicao_acesso = models.CharField('Condição de Acesso', max_length=255)
-    nota_gerais = models.CharField('Notas Gerais', max_length=255)
+    nota_gerais = HTMLField('Notas Gerais')
     serie = models.ForeignKey("Serie", verbose_name='Série')
     slug = models.SlugField(blank=True, max_length=255 , editable= False)
     numero_id = models.CharField(max_length=255, blank=True, editable=False)
@@ -148,7 +148,7 @@ class Documento(models.Model):
         verbose_name_plural = "Documentos"
 
     def __unicode__(self):
-        return u"%s (%s)" % (self.titulo, self.numero_id)
+        return u"%s (%s)" % (self.titulo, self.codigo_referencia)
 
     def save(self, *args, **kwargs):
         if not self.numero_id:

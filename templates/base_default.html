@@ -71,7 +71,7 @@
                 </li>
                 {% url 'fundo_list' as fundo_list_url %}
                 <li {% if fundo_list_url in request.path %}class="active"{% endif %}>
-                  <a href="{{ fundo_list_url }}" class="acervo" title="O Acervo">O Acervo</a>
+                  <a href="{{ fundo_list_url }}" class="acervo" title="Acervo">Acervo</a>
                 </li>
                 {% url 'zinnia:entry_archive_index' as index_url %}
                 <li><a href="{{ index_url  }}" class="noticias" title="O Neabi">Notícias</a></li>

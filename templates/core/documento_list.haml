@@ -9,7 +9,7 @@
 - block content
   .panel.neabi-panel
     .panel-heading.neabi-heading
-      %h1.acervo Documentos da Série {{ documento_list.0.serie.nome}}
+      %h1.acervo {{ documento_list.0.serie.nome}}
     .panel-body
       - for documento in documento_list
         %blockquote.box-fundo
@@ -19,6 +19,8 @@
               Mais detalhes
             %a{'class':'btn btn-orange', href: "{{ documento.arquivo.url}}"}
               Acessar arquivo
+            %p Código de Referência:
+              = documento.codigo_referencia
           %div.collapse{'id':'{{documento.numero_id}}'}
             %div.well
               %table.table.table-hover

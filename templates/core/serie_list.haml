@@ -8,7 +8,8 @@
 - block content
   .panel.neabi-panel
     .panel-heading.neabi-heading
-      %h1.acervo Séries do Acervo {{ serie_list.0.fundo.nome}}
+      %h1.acervo {{ serie_list.0.fundo.nome}}
+      %p Séries:
     .panel-body
       - for serie in serie_list
         %blockquote.box-fundo
