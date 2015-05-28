@@ -1,7 +1,9 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from .models import Neabi, Contato, Publicacoes, Fundo, Serie, Documento
+from .models import Neabi, Contato, Publicacoes, Fundo, Serie, Documento, Projeto
+from django.shortcuts import get_object_or_404
 from watson.views import SearchView
+
 
 
 class NeabiDetail(DetailView):
@@ -56,3 +58,19 @@ class Search(SearchView):
 
     models = (Serie, Documento, Fundo)
     paginate_by = 20
+
+
+class ProjetoList(ListView):
+    model = Projeto
+    paginate_by = 10
+
+
+class FundoDetail(DetailView):
+    model = Fundo
+
+    def get_object(self):
+        return get_object_or_404(Fundo, projeto__slug=self.kwargs['slug'])
+
+
+class ProjetoDetail(DetailView):
+    model = Projeto

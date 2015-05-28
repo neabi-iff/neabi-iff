@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Neabi, Contato, Publicacoes, Documento, Serie, Fundo, Social, Patrocinador
+from .models import Neabi, Contato, Publicacoes, Documento, Serie, Fundo, Social, Patrocinador, Projeto
 
 import watson
 
@@ -32,7 +32,7 @@ class SerieAdmin(admin.ModelAdmin):
 
 @admin.register(Fundo)
 class FundoAdmin(admin.ModelAdmin):
-    list_display = ('nome','biblioteca','imagem', 'destaque','descricao')
+    list_display = ('nome','biblioteca','imagem', 'destaque','descricao', 'projeto')
 
 
 @admin.register(Social)
@@ -43,3 +43,9 @@ class SocialAdmin(admin.ModelAdmin):
 @admin.register(Patrocinador)
 class PatrocinadorAdmin(admin.ModelAdmin):
     list_display = ('nome', 'link', 'imagem')
+
+
+@admin.register(Projeto)
+class ProjetoAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'descricao')
+

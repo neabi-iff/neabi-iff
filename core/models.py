@@ -91,6 +91,7 @@ class Fundo(models.Model):
     imagem = models.ImageField(upload_to=pasta_fundo_uploads_images, blank=True)
     slug = models.SlugField(blank=True, max_length=255, editable=False)
     criado_em = models.DateField(auto_now_add=True)
+    projeto = models.OneToOneField('Projeto', blank=True, null=True)
 
     class Meta:
         verbose_name = "Fundo"
@@ -119,21 +120,21 @@ class Serie(models.Model):
 
 
 class Documento(models.Model):
-    codigo_referencia = models.CharField('Código de Referência', max_length=255)
-    nota_conservacao = models.CharField('Notas de Conservação', max_length=255)
+    codigo_referencia = models.CharField('Código de Referência', max_length=255, blank=True)
     titulo = models.CharField('Título', max_length=255, unique=True)
-    data = models.DateField('Data do Documento')
-    ano = models.CharField('Ano do Documento', max_length=4)
-    dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=255)
-    nivel_descricao = models.CharField('Nível de Descrição', max_length=255)
-    autor = models.CharField('Nome(s) do(s) Autor(es)', max_length=255)
-    ambito_conteudo = HTMLField('Ámbito e Conteúdo')
-    condicao_acesso = models.CharField('Condição de Acesso', max_length=255)
-    nota_gerais = models.CharField('Notas Gerais', max_length=255)
+    data = models.DateField('Data do Documento', blank=True)
+    ano = models.CharField('Ano do Documento', max_length=4, blank=True)
+    dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=255, blank=True)
+    nivel_descricao = models.CharField('Nível de Descrição', max_length=255, blank=True)
+    autor = models.CharField('Nome(s) do(s) Produtor(es)' , max_length=255, blank=True)
+    ambito_conteudo = HTMLField('Ámbito e Conteúdo', blank=True)
+    condicao_acesso = models.CharField('Condição de Acesso', max_length=255, blank=True)
+    nota_conservacao = models.CharField('Notas de Conservação', max_length=255, blank=True)
+    nota_gerais = HTMLField('Notas Gerais', blank=True)
     serie = models.ForeignKey("Serie", verbose_name='Série')
     slug = models.SlugField(blank=True, max_length=255 , editable= False)
     criado_em = models.DateField(auto_now_add=True)
-    arquivo = models.FileField(upload_to=pasta_fundo_uploads, blank=True)
+    arquivo = models.FileField(upload_to=pasta_fundo_uploads)
 
     class Meta:
         verbose_name = "Documento"
@@ -173,6 +174,19 @@ class Patrocinador(models.Model):
         return u"%s" % (self.nome)
 
 
+class Projeto(models.Model):
+    nome = models.CharField(max_length=1024)
+    descricao = HTMLField('Descrição')
+    slug = models.SlugField(blank=True, max_length=255 , editable= False)
+
+    class Meta:
+        verbose_name = "Projeto"
+        verbose_name_plural = "Projetos"
+
+    def __unicode__(self):
+        return u"%s" % (self.nome)
+
+
 # SIGNALS
 from django.db.models import signals
 from django.template.defaultfilters import slugify
@@ -189,8 +203,7 @@ def create_slug(signal, instance, sender, **kwargs):
 signals.pre_save.connect(create_slug, sender=Documento)
 signals.pre_save.connect(create_slug, sender=Fundo)
 signals.pre_save.connect(create_slug, sender=Serie)
-
-
+signals.pre_save.connect(create_slug, sender=Projeto)
 
 watson.register(Fundo)
 watson.register(Serie)

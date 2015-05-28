@@ -17,3 +17,4 @@ django-grappelli
 sorl-thumbnail
 django-bootstrap-pagination
 django-watson
+pyflakes
