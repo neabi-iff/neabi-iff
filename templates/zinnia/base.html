@@ -11,12 +11,12 @@
     <div class="panel-heading panel-destaque-header">
       ACERVO DESTAQUE
     </div>
-      {% url 'fundo_list' as fundo_list_url %}
+      {% url 'projeto_detail' as projeto_detail_url %}
       <div class="panel-body panel-destaque-body">
-        <a href="{{ fundo_list_url }}" title="{{destaque_acervo.nome}}"><img src="{{destaque_acervo.imagem.url}}"></a>
+        <a href="{% url 'projeto_detail' destaque_acervo.projeto.slug %}" title="{{destaque_acervo.nome}}"><img src="{{destaque_acervo.imagem.url}}"></a>
         {% if patrocinadores %}
           <div class="panel-heading panel-patrocinadores-header">
-            PATROCINADORES
+            PROJETO APOIADO POR:
           </div>
           <div class="panel-body panel-destaque-body">
             {% for patrocinador in patrocinadores%}

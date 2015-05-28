@@ -69,10 +69,15 @@
                 <li {% if publicacoes_list_url in request.path %}class="active"{% endif %}>
                   <a href="{{ publicacoes_list_url }}" class="publicacoes" title="Publicações">Publicações</a>
                 </li>
-                {% url 'fundo_list' as fundo_list_url %}
-                <li {% if fundo_list_url in request.path %}class="active"{% endif %}>
-                  <a href="{{ fundo_list_url }}" class="acervo" title="Acervo">Acervo</a>
-                </li>
+                {% url 'projeto_list' as projeto_list_url %}
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Acervo <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="{{ projeto_list_url }}" class="acervo" title="Acervo">Projetos</a></li>
+                      {% url 'fundo_list' as fundo_list_url %}
+                      <li><a href="{{ fundo_list_url }}">Outros Acervos</a></li>
+                    </ul>
+                  </li>
                 {% url 'zinnia:entry_archive_index' as index_url %}
                 <li><a href="{{ index_url  }}" class="noticias" title="O Neabi">Notícias</a></li>
                 {% url 'contato_detail' as contato_detail_url %}
