@@ -1,0 +1,25 @@
+- extends "base_site.html"
+
+- load staticfiles
+- load bootstrap3
+- load bootstrap_pagination
+
+- block content
+  .panel.neabi-panel
+    .panel-heading.neabi-heading
+      %p.navbar-right.mozilla Para melhor viasualização, utilize:
+        %a{ 'href':'http://br.mozdev.org/', 'target':"_blank"}
+          %img{'src':"{% static 'img/mozilla.png' %}", class:"img-responsive",'alt':"Firefox"}
+    .panel-body
+      %blockquote.box-fundo.detail
+        .row
+          - if object.fundo.imagem
+            .col-xs-5.col-sm-5.col-md-4.col-lg-3
+              %img{ "src": "={projeto.fundo.imagem.url}", class: 'img-responsive'}
+          %h2
+            = object.nome
+          %p
+            = object.descricao|safe
+          - if object.fundo  
+            %a{ href: "{% url 'fundo_detail' projeto.slug %}"}
+              %p Acesse o fundo
