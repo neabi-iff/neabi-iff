@@ -1,6 +1,7 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from .models import Neabi, Contato, Publicacoes, Fundo, Serie, Documento
+from watson.views import SearchView
 
 
 class NeabiDetail(DetailView):
@@ -47,3 +48,11 @@ class DocumentoList(ListView):
 
     def get_queryset(self):
         return Documento.objects.filter(serie__slug=self.kwargs['slug'])
+
+
+class Search(SearchView):
+
+    """View that performs a search and returns the search results."""
+
+    models = (Serie, Documento, Fundo)
+    paginate_by = 20

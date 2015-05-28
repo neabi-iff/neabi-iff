@@ -3,6 +3,7 @@ from django.db import models
 import hashlib
 from datetime import datetime
 from tinymce.models import HTMLField
+import watson
 
 
 def get_proximo_numero_id(self, model):
@@ -18,12 +19,12 @@ def get_proximo_numero_id(self, model):
 
 
 def pasta_fundo_uploads(instance, filename):
-    return 'uploads/neabi/fundo_{0}/serie_{1}/doc_{2}/{3}'.format(instance.serie.fundo.numero_id,\
-     instance.serie.numero_id, instance.numero_id, filename)
+    return 'uploads/neabi/fundo_{0}/serie_{1}/doc_{2}/{3}'.format(instance.serie.fundo,\
+     instance.serie, instance, filename)
 
 
 def pasta_fundo_uploads_images(instance, filename):
-    return 'uploads/neabi/fundo_{0}/images/{1}'.format(instance.numero_id,\
+    return 'uploads/neabi/fundo_{0}/images/{1}'.format(instance,\
         filename)
 
 
@@ -89,7 +90,6 @@ class Fundo(models.Model):
     descricao = HTMLField("Descrição")
     imagem = models.ImageField(upload_to=pasta_fundo_uploads_images, blank=True)
     slug = models.SlugField(blank=True, max_length=255, editable=False)
-    numero_id = models.CharField(max_length=255, blank=True, editable=False)
     criado_em = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -97,11 +97,9 @@ class Fundo(models.Model):
         verbose_name_plural = "Fundos"
 
     def __unicode__(self):
-        return u"%s - (%s)" %(self.nome, self.numero_id)
+        return u"%s" %(self.nome)
 
     def save(self, *args, **kwargs):
-        if not self.numero_id:
-            self.numero_id = get_proximo_numero_id(self, Fundo)
         return super(Fundo, self).save(*args, **kwargs)
 
 
@@ -110,7 +108,6 @@ class Serie(models.Model):
     descricao = HTMLField("Descrição")
     fundo = models.ForeignKey("Fundo")
     slug = models.SlugField(blank=True, max_length=255, editable=False)
-    numero_id = models.CharField(max_length=255, blank=True, editable=False)
     criado_em = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -118,12 +115,7 @@ class Serie(models.Model):
         verbose_name_plural = u"Séries"
 
     def __unicode__(self):
-        return u"%s - (%s)" %(self.nome, self.numero_id)
-
-    def save(self, *args, **kwargs):
-        if not self.numero_id:
-            self.numero_id = get_proximo_numero_id(self, Serie)
-        return super(Serie, self).save(*args, **kwargs)
+        return u"%s" %(self.nome)
 
 
 class Documento(models.Model):
@@ -131,6 +123,7 @@ class Documento(models.Model):
     nota_conservacao = models.CharField('Notas de Conservação', max_length=255)
     titulo = models.CharField('Título', max_length=255, unique=True)
     data = models.DateField('Data do Documento')
+    ano = models.CharField('Ano do Documento', max_length=4)
     dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=255)
     nivel_descricao = models.CharField('Nível de Descrição', max_length=255)
     autor = models.CharField('Nome(s) do(s) Autor(es)', max_length=255)
@@ -139,7 +132,6 @@ class Documento(models.Model):
     nota_gerais = models.CharField('Notas Gerais', max_length=255)
     serie = models.ForeignKey("Serie", verbose_name='Série')
     slug = models.SlugField(blank=True, max_length=255 , editable= False)
-    numero_id = models.CharField(max_length=255, blank=True, editable=False)
     criado_em = models.DateField(auto_now_add=True)
     arquivo = models.FileField(upload_to=pasta_fundo_uploads, blank=True)
 
@@ -148,12 +140,7 @@ class Documento(models.Model):
         verbose_name_plural = "Documentos"
 
     def __unicode__(self):
-        return u"%s (%s)" % (self.titulo, self.numero_id)
-
-    def save(self, *args, **kwargs):
-        if not self.numero_id:
-            self.numero_id = get_proximo_numero_id(self, Documento)
-        return super(Documento, self).save(*args, **kwargs)
+        return u"%s" % (self.titulo)
 
 
 class Social(models.Model):
@@ -202,3 +189,9 @@ def create_slug(signal, instance, sender, **kwargs):
 signals.pre_save.connect(create_slug, sender=Documento)
 signals.pre_save.connect(create_slug, sender=Fundo)
 signals.pre_save.connect(create_slug, sender=Serie)
+
+
+
+watson.register(Fundo)
+watson.register(Serie)
+watson.register(Documento)

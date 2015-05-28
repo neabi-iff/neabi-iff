@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'django_nose',
     'bootstrap3',
     'bootstrap_pagination',
+    'watson',
     'core',
 )
 

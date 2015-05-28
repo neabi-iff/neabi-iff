@@ -81,10 +81,10 @@
                 </li>
                 <li class="divider-vertical"></li>
               </ul>
-                <form method="get" action="{% url 'zinnia:entry_search' %}" class="navbar-form navbar-left form-search">
+                <form method="get" action="{% url 'search_neabi' %}" class="navbar-form navbar-left form-search">
                   <div class="form-group left-inner-addon">
                       <i class="glyphicon glyphicon-search"></i>
-                      <input type="search" class="search-query form-control search-top" placeholder="{% trans 'Search' %}" name="pattern" value="{{ pattern }}" />
+                      <input type="search" class="search-query form-control search-top" placeholder="{% trans 'Search' %}" name="q" value="{{request.GET.q}}" />
                   </div>
                 </form>
 

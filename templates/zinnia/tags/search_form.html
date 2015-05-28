@@ -1,8 +1,8 @@
 {% load i18n %}
-<form method="get" id="main_searchform" action="{% url 'zinnia:entry_search' %}" class="well form-search form-horizontal">
+<form method="get" id="main_searchform" action="{% url 'search_neabi' %}" class="well form-search form-horizontal">
   <div class="form-group">
     <div class="input-group col-xs-12 col-sm-12 col-md-11 col-lg-11" id="search-form">
-      <input type="text" value="{{ pattern }}" name="pattern" id="main_searchbox" class="search-query input-xlarge form-control" />
+      <input type="search" value="{{request.GET.q}}" name="q" id="main_searchbox" class="search-query input-xlarge form-control" />
       <p class="help-block">
         {% trans 'You can use - to exclude words or phrases, &quot;double quotes&quot; for exact phrases and the AND/OR boolean operators combined with parenthesis for complex queries.' %}
       </p>

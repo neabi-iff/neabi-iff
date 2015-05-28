@@ -16,3 +16,4 @@ django-toolbelt
 django-grappelli
 sorl-thumbnail
 django-bootstrap-pagination
+django-watson

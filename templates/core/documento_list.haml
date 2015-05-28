@@ -15,11 +15,11 @@
         %blockquote.box-fundo
           %h2
             = documento.titulo
-            %button{'class':'btn btn-orange', 'type':'button','data-toggle':'collapse', 'data-target':'#{{documento.numero_id}}', 'aria-expanded':'false', 'aria-controls':'{{documento.numero_id}}'}
+            %button{'class':'btn btn-orange', 'type':'button','data-toggle':'collapse', 'data-target':'#{{documento.id}}', 'aria-expanded':'false', 'aria-controls':'{{documento.id}}'}
               Mais detalhes
             %a{'class':'btn btn-orange', href: "{{ documento.arquivo.url}}"}
               Acessar arquivo
-          %div.collapse{'id':'{{documento.numero_id}}'}
+          %div.collapse{'id':'{{documento.id}}'}
             %div.well
               %table.table.table-hover
                 %tr
