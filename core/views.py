@@ -1,6 +1,7 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from .models import Neabi, Contato, Publicacoes, Fundo, Serie, Documento
+from .models import Neabi, Contato, Publicacoes, Fundo, Serie, Documento, Projeto
+from django.shortcuts import get_object_or_404
 
 
 class NeabiDetail(DetailView):
@@ -47,3 +48,19 @@ class DocumentoList(ListView):
 
     def get_queryset(self):
         return Documento.objects.filter(serie__slug=self.kwargs['slug'])
+
+
+class ProjetoList(ListView):
+    model = Projeto
+    paginate_by = 10
+
+
+class FundoDetail(DetailView):
+    model = Fundo
+
+    def get_object(self):
+        return get_object_or_404(Fundo, projeto__slug=self.kwargs['slug'])
+
+
+class ProjetoDetail(DetailView):
+    model = Projeto
