@@ -1,4 +1,4 @@
-from .models import Social, Patrocinador, Fundo
+from .models import Social, Fundo
 
 def social(request):
     return {'social': Social.objects.first()}

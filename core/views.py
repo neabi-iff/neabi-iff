@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from .models import Neabi, Contato, Publicacoes, Fundo, Serie, Documento, Projeto
 from django.shortcuts import get_object_or_404
 from watson.views import SearchView
+from django.http import Http404
 
 
 
