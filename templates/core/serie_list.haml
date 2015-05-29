@@ -14,11 +14,15 @@
       - for serie in serie_list
         %blockquote.box-fundo
           %h2
-            %a{ href: "{% url 'documento-list' serie.fundo.projeto.slug serie.fundo.slug serie.slug %}"}
-              = serie.nome
-            %button{'class':'btn btn-orange', 'type':'button','data-toggle':'collapse', 'data-target':'#{{serie.numero_id}}', 'aria-expanded':'false', 'aria-controls':'{{serie.numero_id}}'}
+            - if not serie.fundo.projeto
+              %a{'href':"{% url 'documento-list2' serie.fundo.slug serie.slug %}"}
+                = serie.nome
+            - else
+              %a{'href':"{% url 'documento-list' serie.fundo.projeto.slug serie.fundo.slug serie.slug %}"}
+                = serie.nome
+            %button{'class':'btn btn-orange', 'type':'button','data-toggle':'collapse', 'data-target':'#{{serie.id}}', 'aria-expanded':'false', 'aria-controls':'{{serie.id}}'}
               Detalhes
-          %div.collapse{'id':'{{serie.numero_id}}'}
+          %div.collapse{'id':'{{serie.id}}'}
             %div.well
               %table.table.table-hover
                 %tr
