@@ -17,8 +17,12 @@
               .col-xs-5.col-sm-5.col-md-4.col-lg-3
                 %img{ "src": "={fundo.imagem.url}", class: 'img-responsive'}
             %h2
-              %a{ href: "{% url 'serie-list' object.projeto.slug object.slug %}"}
-               = object.nome
+              - if object.projeto
+                %a{ href: "{% url 'serie-list' object.projeto.slug object.slug %}"}
+                  = object.nome
+              - else
+                %a{ href: "{% url 'serie-list-2' object.slug %}"}
+                  = object.nome
               %small
                 = object.biblioteca
             %p

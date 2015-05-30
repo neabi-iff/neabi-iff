@@ -1,20 +1,81 @@
 {% extends "base_site.html" %}
 
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% load zinnia %}
+{% load core_extras %}
+{% load bootstrap_pagination %}
 {% block content %}
-    <ul>
-    {% for result in search_results %}
-        <li>
-            <article>
-                <h1>
-                    {% if result.url %}<a href="{{result.url}}">{% endif %}
-                    {{result}}
-                    {% if result.url %}</a>{% endif %}
-                </h1>
-                {% if result.description %}
-                    <p>{{result.description}}</p>
-                {% endif %}
-            </article>
-        </li>
-    {% endfor %}
-</ul>
+<div class="panel neabi-panel">
+  <div class="panel-heading neabi-heading panel-destaque-header">
+    <h1 class="acervo">Resultados para o termo: "{{request.GET.q}}"</h1>
+    <br/>
+  </div>
+  {% for result in search_results %}
+    <div class="panel-body panel-destaque-body">
+      <blockquote class="box-fundo detail">
+        <h2>
+          {% if result.content_type.model == "fundo"%}
+            <a href="
+              {% if not result.object.projeto %}
+                {% get_url_fundo_sem_projeto result.object.slug %}
+              {% else %}
+                {% get_url_fundo_com_projeto result.object.projeto.slug %}
+              {% endif %}
+            ">
+              {{result}}
+            </a>
+            <small>{{result.object.biblioteca}}</small>
+          {% elif result.content_type.model == "serie"%}
+            <a href="
+              {% if not result.object.fundo.projeto %}
+                {% get_url_serie_sem_projeto result.object.fundo.slug result.object.slug %}
+              {% else %}
+                {% get_url_serie_com_projeto result.object.fundo.projeto.slug result.object.fundo.slug result.object.slug%}
+              {% endif %}
+            ">{{result}}
+            </a>
+            <small>{{result.object.fundo}}</small>
+          {% elif result.content_type.model == "documento"%}
+            <a href="
+              {% if not result.object.serie.fundo.projeto %}
+                {% get_url_documento_sem_projeto result.object.serie.fundo.slug result.object.serie.slug result.object.slug %}
+              {% else %}
+                {% get_url_documento_com_projeto result.object.serie.fundo.projeto.slug result.object.serie.fundo.slug result.object.serie.slug result.object.slug %}
+              {% endif %}
+            ">
+              {{result}}
+            </a>
+            <small>Código de referência: {{result.object.codigo_referencia|safe}}</small>
+          {% endif %}
+        </h2>
+        <p>
+          {% if result.content_type.model == "fundo"%}
+            {{result.object.descricao|safe| truncatewords:"33" }}
+          {% elif result.content_type.model == "serie"%}
+            {{result.object.descricao|safe| truncatewords:"33"}}
+          {% elif result.content_type.model == "documento"%}
+            <dl class="dl-horizontal">
+              <dt>Ámbito e Conteúdo:</dt>
+              <dd>{{result.object.ambito_conteudo|safe|truncatewords:"20"}}</dd>
+              <dt>Notas Gerais:</dt>
+              <dd>{{result.object.nota_gerais|safe|truncatewords:"20"}}</dd>
+            </dl>
+          {% endif %}
+        </p>
+      </blockquote>
+    </div>
+  {% empty %}
+    <div class="panel-body panel-destaque-body">
+      <blockquote class="box-fundo detail">
+        <h2>Nenhum resultado para este termo, tente novamente!</h2>
+      </blockquote>
+    </div>
+  {% endfor %}
+  {% if is_paginated %}
+    <div class="text-center">
+      {% bootstrap_paginate page_obj range=5 %}
+    </div>
+  {% endif %}
+</div>
 {%endblock%}

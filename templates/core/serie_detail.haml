@@ -1,0 +1,26 @@
+- extends "base_site.html"
+
+- load staticfiles
+- load bootstrap3
+- load bootstrap_pagination
+
+- block content
+  .panel.neabi-panel
+    .panel-heading.neabi-heading.panel-destaque-header
+      %p.navbar-right.mozilla Para melhor viasualização, utilize:
+        %a{ 'href':'http://br.mozdev.org/', 'target':"_blank"}
+          %img{'src':"{% static 'img/mozilla.png' %}", class:"img-responsive",'alt':"Firefox"}
+      %h1.acervo
+        = object.fundo.nome
+      %p Série:
+    .panel-body.panel-destaque-body
+      %blockquote.box-fundo.detail
+        %h2
+          - if not object.fundo.projeto
+              %a{'href':"{% url 'documento-list2' object.fundo.slug object.slug %}"}
+                = object.nome
+          - else
+            %a{'href':"{% url 'documento-list' object.fundo.projeto.slug object.fundo.slug object.slug %}"}
+              = object.nome
+        %p
+          = object.descricao|safe

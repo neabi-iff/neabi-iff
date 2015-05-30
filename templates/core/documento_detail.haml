@@ -1,0 +1,57 @@
+- extends "base_site.html"
+
+- load staticfiles
+- load bootstrap3
+- load bootstrap_pagination
+
+- block content
+  .panel.neabi-panel
+    .panel-heading.neabi-heading.panel-destaque-header
+      %p.navbar-right.mozilla Para melhor viasualização, utilize:
+        %a{ 'href':'http://br.mozdev.org/', 'target':"_blank"}
+          %img{'src':"{% static 'img/mozilla.png' %}", class:"img-responsive",'alt':"Firefox"}
+        %h1.acervo
+          = object.serie.nome
+    .panel-body.panel-destaque-body
+      %blockquote.box-fundo.detail
+        %h2
+          = object.titulo
+          %a{'class':'btn btn-orange', href: "{{ object.arquivo.url}}"}
+            Acessar arquivo
+          %p Código de Referência:
+            = object.codigo_referencia
+          %div
+            %div.well
+              %table.table.table-hover
+                %tr
+                  %th Notas de Conservação:
+                  %td
+                    = object.nota_conservacao
+                %tr
+                  %th Data do Documento:
+                  %td
+                    = object.data
+                %tr
+                  %th Dimensão de Suporte:
+                  %td
+                    = object.dimensao_suporte
+                %tr
+                  %th Nível de Descrição:
+                  %td
+                    = object.nivel_descricao
+                %tr
+                  %th Nome(s) do(s) Produtor(es):
+                  %td
+                    = object.autor
+                %tr
+                  %th Ámbito e Conteúdo:
+                  %td
+                    = object.ambito_conteudo|safe
+                %tr
+                  %th Condição de Acesso:
+                  %td
+                    = object.condicao_acesso
+                %tr
+                  %th Notas Gerais:
+                  %td
+                    = object.nota_gerais|safe
