@@ -8,11 +8,12 @@
 
 - block content
   .panel.neabi-panel
-    .panel-heading.neabi-heading
+    .panel-heading.neabi-heading.panel-destaque-header
       %h1.acervo {{ documento_list.0.serie.nome}}
-    .panel-body
-      - for documento in documento_list
-        %blockquote.box-fundo
+      %p Documentos:
+    - for documento in documento_list
+      .panel-body.panel-destaque-body
+        %blockquote.box-fundo.detail
           %h2
             = documento.titulo
             %button{'class':'btn btn-orange', 'type':'button','data-toggle':'collapse', 'data-target':'#{{documento.id}}', 'aria-expanded':'false', 'aria-controls':'{{documento.id}}'}
@@ -22,7 +23,7 @@
             %p Código de Referência:
               = documento.codigo_referencia
           %div.collapse{'id':'{{documento.id}}'}
-            %div.well
+            %div.well.well-table
               %table.table.table-hover
                 %tr
                   %th Notas de Conservação:
@@ -55,10 +56,11 @@
                 %tr
                   %th Notas Gerais:
                   %td
-                    = documento.nota_gerais
-      -empty
-        %blockquote.box-fundo
-          %p Não possui documentos para esta série.
-      - if is_paginated
-        .text-center
-          - bootstrap_paginate page_obj range=5
+                    = documento.nota_gerais|safe
+    -empty
+      .panel-body.panel-destaque-body
+        %blockquote.box-fundo.detail
+          %h2 Não possui documentos para esta série.
+    - if is_paginated
+      .text-center
+        - bootstrap_paginate page_obj range=5

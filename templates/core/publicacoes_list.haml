@@ -6,19 +6,21 @@
 
 - block content
   .panel.neabi-panel
-    .panel-heading.neabi-heading
+    .panel-heading.neabi-heading.panel-destaque-header
       %h1.publicacoes PUBLICAÇÕES
-    .panel-body
-      - for pub in publicacoes_list
-        %blockquote.box-fundo
+      %p
+    - for pub in publicacoes_list
+      .panel-body.panel-destaque-body
+        %blockquote.box-fundo.detail
           %h2
             = pub.titulo
             %a{'href':'={pub.arquivo.url }', 'class':'btn btn-orange'} Acessar Arquivo
           %p
             = pub.descricao|safe
       -empty
-        %blockquote.box-fundo
-          %p Não tem Fundo cadastrado no momento.
+        .panel-body.panel-destaque-body
+          %blockquote.box-fundo
+            %h2 Não tem Fundo cadastrado no momento.
       - if is_paginated
         .text-center
           - bootstrap_paginate page_obj range=5

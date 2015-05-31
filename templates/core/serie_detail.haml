@@ -17,8 +17,8 @@
       %blockquote.box-fundo.detail
         %h2
           - if not object.fundo.projeto
-              %a{'href':"{% url 'documento-list2' object.fundo.slug object.slug %}"}
-                = object.nome
+            %a{'href':"{% url 'documento-list2' object.fundo.slug object.slug %}"}
+              = object.nome
           - else
             %a{'href':"{% url 'documento-list' object.fundo.projeto.slug object.fundo.slug object.slug %}"}
               = object.nome

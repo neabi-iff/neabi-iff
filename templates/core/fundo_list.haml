@@ -6,15 +6,16 @@
 
 - block content
   .panel.neabi-panel
-    .panel-heading.neabi-heading
+    .panel-heading.neabi-heading.panel-destaque-header
       %p.navbar-right.mozilla Para melhor viasualização, utilize:
         %a{ 'href':'http://br.mozdev.org/', 'target':"_blank"}
           %img{'src':"{% static 'img/mozilla.png' %}", class:"img-responsive",'alt':"Firefox"}
       %h1.acervo ACERVOS
-    .panel-body
-      - for fundo in fundo_list
-        - if not fundo.projeto
-          %blockquote.box-fundo
+      %br
+    - for fundo in fundo_list
+      - if not fundo.projeto
+        .panel-body.panel-destaque-body
+          %blockquote.box-fundo.detail
             .row
               - if fundo.imagem
                 .col-xs-5.col-sm-5.col-md-4.col-lg-3
@@ -27,9 +28,10 @@
               %p
                 = fundo.descricao|safe
 
-      -empty
-        %blockquote.box-fundo
-          %p Não tem Fundo cadastrado no momento.
-      - if is_paginated
-        .text-center
-          - bootstrap_paginate page_obj range=5
+    -empty
+      .panel-body.panel-destaque-body
+        %blockquote.box-fundo.detail
+          %h2 Não tem Fundo cadastrado no momento.
+    - if is_paginated
+      .text-center
+        - bootstrap_paginate page_obj range=5

@@ -6,14 +6,12 @@
 
 - block content
   .panel.neabi-panel
-    .panel-heading.neabi-heading
-      %p.navbar-right.mozilla Para melhor viasualização, utilize:
-        %a{ 'href':'http://br.mozdev.org/', 'target':"_blank"}
-          %img{'src':"{% static 'img/mozilla.png' %}", class:"img-responsive",'alt':"Firefox"}
+    .panel-heading.neabi-heading.panel-destaque-header
       %h1.acervo PROJETOS
-    .panel-body
-      - for projeto in projeto_list
-        %blockquote.box-fundo
+      %p
+    - for projeto in projeto_list
+      .panel-body.panel-destaque-body
+        %blockquote.box-fundo.detail
           .row
             - if projeto.fundo.imagem
               .col-xs-5.col-sm-5.col-md-4.col-lg-3
@@ -21,9 +19,10 @@
             %h2
               %a{href: "{% url 'projeto_detail' projeto.slug %}"}
                 = projeto.nome
-      -empty
-        %blockquote.box-fundo
-          %p Não tem Projeto cadastrado no momento.
-      - if is_paginated
-        .text-center
-          - bootstrap_paginate page_obj range=5
+    -empty
+      .panel-body.panel-destaque-body
+        %blockquote.box-fundo.detail
+          %h2 Não tem Projeto cadastrado no momento.
+    - if is_paginated
+      .text-center
+        - bootstrap_paginate page_obj range=5

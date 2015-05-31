@@ -247,8 +247,8 @@ div.entry-content.lead{
 }
 
 .well{
-  background-color: #f5f5f5;
   border: 1px solid #EFBCA2;
+  background-color: rgb(229, 206, 176);
 }
 
 .entry-header{
@@ -343,4 +343,7 @@ blockquote{
 
 dl.dl-horizontal {
   margin-bottom: auto;
+}
+.well-table{
+  background-color: #f5f5f5;
 }
