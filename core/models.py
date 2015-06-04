@@ -119,7 +119,7 @@ class Serie(models.Model):
 
 
 class Documento(models.Model):
-    codigo_referencia = models.CharField('Código de Referência', max_length=255, blank=True)
+    codigo_referencia = models.CharField('Código de Referência *', max_length=255, blank=True)
     titulo = models.CharField('Título', max_length=255, unique=True)
     data = models.DateField('Data do Documento', blank=True)
     ano = models.CharField('Ano do Documento', max_length=4, blank=True)

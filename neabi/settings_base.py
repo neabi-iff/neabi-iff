@@ -32,6 +32,7 @@ SITE_ID = 1
 
 INSTALLED_APPS = (
     'grappelli',
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -100,7 +101,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_files'),
 )
-ADMIN_MEDIA_PREFIX = STATIC_URL
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -138,9 +138,13 @@ BOOTSTRAP3 = {
     'horizontal_field_class': 'col-md-8',
 }
 
+TINYMCE_SPELLCHECKER = True
+TINYMCE_FILEBROWSER = True
+FILEBROWSER_URL_FILEBROWSER_MEDIA = "/static/filebrowser/"
 
 TINYMCE_DEFAULT_CONFIG = {
     'theme' : "advanced",
+    'mode': "textareas",
     'plugins' : "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
 
     'theme_advanced_buttons1' : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect,|,code",
@@ -150,13 +154,15 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme_advanced_toolbar_location' : "top",
     'theme_advanced_toolbar_align' : "left",
     'theme_advanced_statusbar_location' : "bottom",
-    'theme_advanced_resizing' : 'true',
+    'theme_advanced_resizing' : "true",
 
+    'theme_advanced_buttons1_add' : "media",
+    'theme_advanced_buttons2_add' : "advimage",
 
-    'template_external_list_url' : "lists/template_list.js",
-    'external_link_list_url' : "lists/link_list.js",
-    'external_image_list_url' : "lists/image_list.js",
-    'media_external_list_url' : "lists/media_list.js",
+    'language': "{{ language }}",
+    'directionality': "{{ directionality }}",
+    'spellchecker_languages' : "{{ spellchecker_languages }}",
+    'spellchecker_rpc_url' : "{{ spellchecker_rpc_url }}",
 
 }
 

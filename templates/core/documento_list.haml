@@ -19,7 +19,7 @@
             %button{'class':'btn btn-orange', 'type':'button','data-toggle':'collapse', 'data-target':'#{{documento.id}}', 'aria-expanded':'false', 'aria-controls':'{{documento.id}}'}
               Mais detalhes
             %a{'class':'btn btn-orange', href: "{{ documento.arquivo.url}}"}
-              Acessar arquivo
+              Acessar Documento
             %p Código de Referência:
               = documento.codigo_referencia
           %div.collapse{'id':'{{documento.id}}'}

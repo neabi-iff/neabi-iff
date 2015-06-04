@@ -18,3 +18,4 @@ sorl-thumbnail
 django-bootstrap-pagination
 django-watson
 pyflakes
+django-filebrowser
