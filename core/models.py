@@ -72,7 +72,7 @@ class Neabi(models.Model):
 class Publicacoes(models.Model):
     titulo = models.CharField(max_length=255)
     descricao = HTMLField("Descrição")
-    arquivo = models.FileField(upload_to='uploads/neabi/publicacoes/', blank=True)
+    arquivo = models.FileField(upload_to='uploads/neabi/publicacoes/')
 
     class Meta:
         verbose_name = 'Plubicação'
@@ -162,7 +162,7 @@ class Social(models.Model):
 class Patrocinador(models.Model):
     nome = models.CharField(max_length=500)
     link = models.URLField(blank=True)
-    imagem = models.ImageField(upload_to="uploads/neabi/patrocinadores/", blank=True)
+    imagem = models.ImageField(upload_to="uploads/neabi/patrocinadores/")
     acervo = models.ForeignKey('Fundo')
 
     class Meta:

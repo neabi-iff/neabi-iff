@@ -171,10 +171,10 @@ a.acervo{
 }
 
 a.noticias{
-    color: #CC8E91;
+    color: #bf7275;
 }
 a.contato{
-    color: #DC8766;
+    color: #ce704e;
 }
 .social{
     margin-top: 10px;
@@ -305,7 +305,7 @@ blockquote.box-fundo .row{
   margin-bottom: -5px;
 }
 h1.noticias{
-  color: #CC8E91;
+  color: #bf7275;
   margin-top: auto;
 }
 
@@ -398,5 +398,7 @@ dl.dl-horizontal {
 .carousel-control.right {
   background-image: none;
 }
-
-
+.neabi-titulo{
+  margin-left: 25%;
+  margin-top: 6%;
+}
