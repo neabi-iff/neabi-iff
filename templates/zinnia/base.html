@@ -13,14 +13,14 @@
     </div>
       {% url 'projeto_detail' as projeto_detail_url %}
       <div class="panel-body panel-destaque-body">
-        <a href="{% url 'projeto_detail' destaque_acervo.projeto.slug %}" title="{{destaque_acervo.nome}}"><img src="{{destaque_acervo.imagem.url}}"></a>
+        <a href="{% url 'projeto_detail' destaque_acervo.projeto.slug %}" title="{{destaque_acervo.nome}}"><img width="120px" src="{{destaque_acervo.imagem.url}}"></a>
         {% if patrocinadores %}
           <div class="panel-heading panel-patrocinadores-header">
-            PROJETO APOIADO POR:
+            APOIO:
           </div>
           <div class="panel-body panel-destaque-body">
             {% for patrocinador in patrocinadores%}
-              <a href="{{ patrocinador.link }}" title="{{patrocinador.nome}}"><img src="{{patrocinador.imagem.url}}"></a>
+              <a href="{{ patrocinador.link }}" title="{{patrocinador.nome}}"><img width="80px" height="80px" src="{{patrocinador.imagem.url}}"></a>
             {% endfor %}
           </div>
         {%endif%}
