@@ -34,6 +34,6 @@
         %blockquote.box-fundo.detail
           %h2 Não possui documentos para as series do fundo no momento.
 
-      - if is_paginated
-        .text-center
-          - bootstrap_paginate page_obj range=5
+    - if is_paginated
+      .text-center
+        - bootstrap_paginate page_obj range=5
