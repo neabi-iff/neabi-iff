@@ -9,7 +9,7 @@
     .panel-heading.neabi-heading.panel-destaque-header
       %p.navbar-right.mozilla Para melhor visualização, utilize:
         %a{ 'href':'http://br.mozdev.org/', 'target':"_blank"}
-          %img{'src':"{% static 'img/mozilla.png' %}", "width":"200px", class:"img-responsive",'alt':"Firefox"}
+          %img{'src':"{% static 'img/mozilla.png' %}", class:"img-responsive",'alt':"Firefox"}
       %h1.acervo Acervo
       %p
     .panel-body
@@ -17,7 +17,7 @@
         .row
           - if object.imagem
             .col-xs-5.col-sm-5.col-md-4.col-lg-3
-              %img{ "src": "={fundo.imagem.url}", class: 'img-responsive'}
+              %img{ "src": "={fundo.imagem.url}", "width":"150px", class: 'img-responsive'}
           %h2
             - if object.projeto
               %a{ href: "{% url 'serie-list' object.projeto.slug object.slug %}"}
