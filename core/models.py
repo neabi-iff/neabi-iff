@@ -120,7 +120,7 @@ class Serie(models.Model):
 
 class Documento(models.Model):
     codigo_referencia = models.CharField('Código de Referência *', max_length=255, blank=True)
-    titulo = models.CharField('Título', max_length=255, unique=True)
+    titulo = models.CharField('Título', max_length=255)
     data = models.DateField('Data do Documento')
     ano = models.CharField('Ano do Documento', max_length=4, blank=True)
     dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=255, blank=True)
@@ -133,7 +133,7 @@ class Documento(models.Model):
     serie = models.ForeignKey("Serie", verbose_name='Série')
     slug = models.SlugField(blank=True, max_length=255 , editable= False)
     criado_em = models.DateField(auto_now_add=True)
-    arquivo = models.FileField(upload_to=pasta_fundo_uploads)
+    arquivo = models.FileField(upload_to=pasta_fundo_uploads, blank=True)
 
     class Meta:
         verbose_name = "Documento"
