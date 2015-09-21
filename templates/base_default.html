@@ -3,7 +3,7 @@
 <html lang="{{ LANGUAGE_CODE }}">
   <head>
     <meta charset="utf-8">
-    <title>Neabi IFF - {% block title %}{% endblock title %}{% block title-page %}{% endblock title-page %}</title>
+    <title>Neabi IFF - {% block title %}{{ settings.SITE_TITLE }}{% endblock title %}{% block title-page %}{% endblock title-page %}</title>
     <meta name="robots" content="follow, all" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="{% block meta-description %}{% trans "Just another Zinnia weblog." %}{% endblock meta-description %}{% block meta-description-page %}{% endblock meta-description-page %}" />
@@ -53,7 +53,9 @@
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <h1 class="logo-iff navbar-right"></h1>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 neabi-titulo">NÚCLEO DE ESTUDOS AFRO-BRASILEIROS E INDÍGENAS</div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 neabi-heading">
+            <h1 class="neabi-titulo">NÚCLEO DE ESTUDOS AFRO-BRASILEIROS E INDÍGENAS</h1>
+          </div>
           <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 navbar-right top-linha">
             <hr class="linha-top"/>
             <hr class="linha-top"/>
