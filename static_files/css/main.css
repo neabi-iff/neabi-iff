@@ -242,7 +242,7 @@ div.entry-content.lead{
 
 .panel-heading{
   font-family: 'BreeSerifRegular';
-  font-size: 20px;
+  font-size: 17px;
   color:#806A63;
 }
 
@@ -281,7 +281,7 @@ blockquote.box-fundo h2{
   font-family: 'BreeSerifRegular';
 }
 blockquote p{
-    font-size: 15.5px;
+    font-size: 14.5px;
 }
 
 blockquote.box-fundo .row{
@@ -321,10 +321,10 @@ h1.noticias{
   font-size: 14px;
 }
 h1{
-  font-size: 20px;
+  font-size: 21px;
 }
 h2{
-  font-size: 16px;
+  font-size: 19px;
 }
 .dropdown-menu{
   background-color: rgba(227, 227, 227, 0.91);
@@ -401,6 +401,6 @@ dl.dl-horizontal {
 
 h1.neabi-titulo {
   margin-top: 7%;
-  font-size: 115%;
+  font-size: 113%;
   text-align: center;
 }

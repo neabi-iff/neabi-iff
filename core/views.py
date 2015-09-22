@@ -46,7 +46,7 @@ class SerieList(ListView):
 
 class DocumentoList(ListView):
     model = Documento
-    paginate_by = 10
+    paginate_by = 15
 
     def get_queryset(self):
         return Documento.objects.filter(serie__slug=self.kwargs['slug'])
