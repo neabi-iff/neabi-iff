@@ -63,13 +63,13 @@
           </div>
           <div class=" col-xs-12 col-sm-9 col-md-9 col-lg-10 navbar-right">
             <div class="collapse navbar-collapse">
-              <ul class="nav navbar-nav navbar-left">
+              <ul class="nav navbar-nav navbar-left"> 
                 {% url 'neabi_detail' as neabi_detail_url %}
-                <li {% if neabi_detail_url in request.path %}class="active"{% endif %}>
+                <li {% if request.resolver_match.url_name == 'neabi_detail' %}class="active"{% endif %}>
                   <a href="{{ neabi_detail_url }}" class="neabi" title="O Neabi">O Neabi</a>
                 </li>
                 {% url 'publicacoes_list' as publicacoes_list_url %}
-                <li {% if publicacoes_list_url in request.path %}class="active"{% endif %}>
+                <li {% if request.resolver_match.url_name == 'publicacoes_list' %}class="active"{% endif %}>
                   <a href="{{ publicacoes_list_url }}" class="publicacoes" title="Publicações">Publicações</a>
                 </li>
                 {% url 'projeto_list' as projeto_list_url %}
@@ -82,9 +82,9 @@
                     </ul>
                   </li>
                 {% url 'zinnia:entry_archive_index' as index_url %}
-                <li><a href="{{ index_url  }}" class="noticias" title="O Neabi">Notícias</a></li>
+                <li {% if request.resolver_match.url_name == 'entry_archive_index' %}class="active"{% endif %} ><a href="{{ index_url  }}" class="noticias" title="O Neabi">Notícias</a></li>
                 {% url 'contato_detail' as contato_detail_url %}
-                <li {% if contato_detail_url in request.path %}class="active"{% endif %}>
+                <li {% if request.resolver_match.url_name == 'contato_detail' %}class="active"{% endif %}>
                   <a href="{{contato_detail_url}}" class="contato" title="Contato">Contato</a>
                 </li>
                 <li class="divider-vertical"></li>

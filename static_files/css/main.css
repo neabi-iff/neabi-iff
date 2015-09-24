@@ -79,24 +79,10 @@ ul.navbar-nav{
   font-size: 150%;
 
 }
-.nav>li>a:hover{
-    background-color: transparent;
-}
+
 .navbar-nav>li>a{
-    margin-bottom: -8px;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
 }
-.nav>li>a{
-    margin-bottom: auto;
-}
-
-.header ul.nav li a:hover {
-    text-decoration: underline;;
-    color: #3F2B1F;
-/* color: #fff;*/
-/*    border-bottom: 2px #24C1BD;*/
-}
-
 
 form.form-search{
     margin-top: 4px;
@@ -403,4 +389,16 @@ h1.neabi-titulo {
   margin-top: 7%;
   font-size: 113%;
   text-align: center;
+}
+
+ul.nav li.active a {
+  padding-bottom: 7px;
+  border-bottom: 5px solid #D05D2A;
+  background: rgb(229, 206, 176);
+}
+
+
+ul.nav li a:hover {
+    background: rgb(229, 206, 176);
+    text-decoration: none;
 }
