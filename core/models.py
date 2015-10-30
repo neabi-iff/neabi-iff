@@ -123,17 +123,17 @@ class Documento(models.Model):
     titulo = models.CharField('Título', max_length=255)
     data = models.DateField('Data do Documento')
     ano = models.CharField('Ano do Documento', max_length=4, blank=True)
-    dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=255, blank=True)
-    nivel_descricao = models.CharField('Nível de Descrição', max_length=255, blank=True)
-    autor = models.CharField('Nome(s) do(s) Produtor(es)' , max_length=255, blank=True)
+    dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=1024, blank=True)
+    nivel_descricao = models.CharField('Nível de Descrição', max_length=1024, blank=True)
+    autor = models.CharField('Nome(s) do(s) Produtor(es)' , max_length=1024, blank=True)
     ambito_conteudo = HTMLField('Ámbito e Conteúdo', blank=True)
-    condicao_acesso = models.CharField('Condição de Acesso', max_length=255, blank=True)
-    nota_conservacao = models.CharField('Notas de Conservação', max_length=255, blank=True)
+    condicao_acesso = models.CharField('Condição de Acesso', max_length=1024, blank=True)
+    nota_conservacao = models.CharField('Notas de Conservação', max_length=1024, blank=True)
     nota_gerais = HTMLField('Notas Gerais', blank=True)
     serie = models.ForeignKey("Serie", verbose_name='Série')
     slug = models.SlugField(blank=True, max_length=255 , editable= False)
     criado_em = models.DateField(auto_now_add=True)
-    arquivo = models.FileField(upload_to=pasta_fundo_uploads, blank=True)
+    arquivo = models.FileField(upload_to=pasta_fundo_uploads, blank=True, max_length=1024)
 
     class Meta:
         verbose_name = "Documento"
