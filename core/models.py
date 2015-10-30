@@ -18,12 +18,12 @@ def get_proximo_numero_id(self, model):
 
 
 def pasta_fundo_uploads(instance, filename):
-    return 'uploads/neabi/fundo_{0}/serie_{1}/doc_{2}/{3}'.format(instance.serie.fundo,\
+    return u'uploads/neabi/fundo_{0}/serie_{1}/doc_{2}/{3}'.format(instance.serie.fundo,\
      instance.serie, instance, filename)
 
 
 def pasta_fundo_uploads_images(instance, filename):
-    return 'uploads/neabi/fundo_{0}/images/{1}'.format(instance,\
+    return u'uploads/neabi/fundo_{0}/images/{1}'.format(instance,\
         filename)
 
 
@@ -49,7 +49,7 @@ class Contato(models.Model):
         verbose_name_plural = 'Contatos'
 
     def __unicode__(self):
-        return '%s' % (self.id)
+        return u'%s' % (self.id)
 
     def clean(self):
         validar_maximo_uma_instancia(self)
@@ -63,7 +63,7 @@ class Neabi(models.Model):
         verbose_name_plural = 'Sobre o Neabi'
 
     def __unicode__(self):
-        return '%d' % (self.id)
+        return u'%d' % (self.id)
 
     def clean(self):
         validar_maximo_uma_instancia(self)
@@ -79,7 +79,7 @@ class Publicacoes(models.Model):
         verbose_name_plural = 'Publicações'
 
     def __unicode__(self):
-        return '%s' % (self.titulo)
+        return u'%s' % (self.titulo)
 
 
 class Fundo(models.Model):
@@ -97,7 +97,7 @@ class Fundo(models.Model):
         verbose_name_plural = "Fundos"
 
     def __unicode__(self):
-        return u"%s" %(self.nome)
+        return u"%s" % (self.nome)
 
     def save(self, *args, **kwargs):
         return super(Fundo, self).save(*args, **kwargs)
@@ -115,7 +115,7 @@ class Serie(models.Model):
         verbose_name_plural = u"Séries"
 
     def __unicode__(self):
-        return u"%s" %(self.nome)
+        return u"%s" % (self.nome)
 
 
 class Documento(models.Model):
