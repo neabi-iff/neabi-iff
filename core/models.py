@@ -138,6 +138,7 @@ class Documento(models.Model):
     class Meta:
         verbose_name = "Documento"
         verbose_name_plural = "Documentos"
+        ordering = ['codigo_referencia']
 
     def __unicode__(self):
         return u"%s" % (self.titulo)
