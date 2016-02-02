@@ -77,6 +77,7 @@ class Publicacoes(models.Model):
     class Meta:
         verbose_name = 'Plubicação'
         verbose_name_plural = 'Publicações'
+        ordering = ['titulo']
 
     def __unicode__(self):
         return u'%s' % (self.titulo)
@@ -95,6 +96,7 @@ class Fundo(models.Model):
     class Meta:
         verbose_name = "Fundo"
         verbose_name_plural = "Fundos"
+        ordering = ['nome']
 
     def __unicode__(self):
         return u"%s" % (self.nome)
@@ -113,6 +115,7 @@ class Serie(models.Model):
     class Meta:
         verbose_name = u"Série"
         verbose_name_plural = u"Séries"
+        ordering = ['nome']
 
     def __unicode__(self):
         return u"%s" % (self.nome)
@@ -182,6 +185,7 @@ class Projeto(models.Model):
     class Meta:
         verbose_name = "Projeto"
         verbose_name_plural = "Projetos"
+        ordering = ['nome']
 
     def __unicode__(self):
         return u"%s" % (self.nome)
