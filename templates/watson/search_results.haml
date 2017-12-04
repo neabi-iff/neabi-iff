@@ -1,0 +1,56 @@
+- extends "zinnia/base.html"
+
+- load zinnia
+- load staticfiles
+- load bootstrap3
+- load bootstrap_pagination
+- load core_extras
+
+- block content
+  .panel.panel-neabi
+    .panel-heading
+      .acervo 
+        Resultados para o termo:
+        = request.GET.q
+    .panel-body
+      - for result in search_results
+        %blockquote.box-fundo.detail
+          %h2
+            - if result.content_type.model == "fundo"
+              %a{ href: "{% if not result.object.projeto %} {% url 'fundo_detail' result.object.slug %} {% else %} {% url 'projeto_detail' result.object.projeto.slug result.object.slug %} {% endif %}"}
+                = result
+              %small
+                = result.object.biblioteca
+            - elif result.content_type.model == "serie"
+              %a{ href: "{% if not result.object.fundo.projeto %} {% url 'documento-list2' result.object.fundo.slug result.object.slug %} {% else %} {% url 'documento-list' result.object.fundo.projeto.slug result.object.fundo.slug result.object.slug %} {% endif %}"}
+                = result
+              %small
+                = result.object.fundo
+            - elif result.content_type.model == "documento"
+              %a{ href: "{% if not result.object.serie.fundo.projeto %} {% url 'documento-detail2' result.object.serie.fundo.slug result.object.serie.slug result.object.slug %} {% else %} {% url 'documento-detail' result.object.serie.fundo.projeto.slug result.object.serie.fundo.slug result.object.serie.slug result.object.slug %} {% endif %}"}
+                = result
+              %small
+                Código de referência:
+                = result.object.codigo_referencia|safe
+          %p
+            - if result.content_type.model == "fundo"
+              = result.object.descricao|safe| truncatewords:"33"
+            - elif result.content_type.model == "serie"
+              = result.object.descricao|safe| truncatewords:"33"
+            - elif result.content_type.model == "documento"
+              %dl.dl-horizontal
+                %dt Data do Documento:
+                %dd
+                  = result.object.data
+                %dt Ámbito e Conteúdo:
+                %dd
+                  = result.object.ambito_conteudo|safe|truncatewords:"20"
+                %dt Notas Gerais:
+                %dd
+                  = result.object.nota_gerais|safe|truncatewords:"20"
+      -empty
+        %blockquote.box-fundo.detail
+          %p Nenhum resultado para este termo, tente novamente!
+      - if is_paginated
+        .text-center
+          - bootstrap_paginate page_obj range=5

@@ -1,37 +1,62 @@
-- extends "base_site.html"
+- extends "zinnia/base.html"
 
 - load staticfiles
 - load bootstrap3
 - load bootstrap_pagination
 
 - block content
-  .panel.neabi-panel
-    .panel-heading.neabi-heading.panel-destaque-header
-      %p.navbar-right.mozilla Para melhor visualização, utilize:
-        %a{'href':'http://br.mozdev.org/', 'target':"_blank"}
-          %img{'src':"{% static 'img/mozilla.png' %}", class:"img-responsive",'alt':"Firefox"}
-      %h1.acervo ACERVOS
-      %br
-    - for fundo in fundo_list
-      - if not fundo.projeto
-        .panel-body.panel-destaque-body
+  .panel.panel-neabi
+    .panel-heading
+      .acervo ACERVOS SEM PROJETO
+    .panel-body
+      .left-inner-addon
+        %i.glyphicon.glyphicon-search
+        %input.search.form-control#search_acervo{ :type => "text", :placeholder => "Pesquisar Acervo...", :oninput => "search_acervo();" }
+      .list
+        - for fundo in fundo_list
+          - if not fundo.projeto
+            %blockquote.box-fundo.detail
+              .row
+                - if fundo.imagem
+                  .col-xs-4.col-sm-6.col-md-4.col-lg-3
+                    %img.img-thumbnail.img-responsive{ :src => "{{fundo.imagem.url}}", :width =>"155px"}
+                %h2
+                  = fundo.nome
+                  %a{'class':'btn btn-orange pull-right', href: "{% url 'fundo_detail' fundo.slug %}"}
+                    Acessar Acervo
+                  %small
+                    = fundo.biblioteca
+                %p
+                  = fundo.descricao|safe
+                - if fundo.patrocinador_set.all
+                  %h2 Apoio:
+                  %p
+                    - for patrocinador in fundo.patrocinador_set.all
+                      - if patrocinador.imagem
+                        %a{:href => "{{ patrocinador.link }}", :title => "{{patrocinador.nome}}"}
+                          %img.img-thumbnail.img-responsive{:height => "80px", :src => "{{patrocinador.imagem.url}}", :width => "80px"}/
+                      - else
+                        %a{:href => "{{ patrocinador.link }}", :title => "{{patrocinador.nome}}"}
+                          = patrocinador.nome
+        -empty
           %blockquote.box-fundo.detail
-            .row
-              - if fundo.imagem
-                .col-xs-5.col-sm-5.col-md-4.col-lg-3
-                  %img{ "src": "={fundo.imagem.url}", class: 'img-responsive'}
-              %h2
-                %a{ href: "{% url 'serie-list-2' fundo.slug %}"}
-                 = fundo.nome
-                %small
-                  = fundo.biblioteca
-              %p
-                = fundo.descricao|safe
+            %p Não tem acervo no momento.
+        - if is_paginated
+          .text-center
+            - bootstrap_paginate page_obj range=5
 
-    -empty
-      .panel-body.panel-destaque-body
-        %blockquote.box-fundo.detail
-          %h2 Não tem Fundo cadastrado no momento.
-    - if is_paginated
-      .text-center
-        - bootstrap_paginate page_obj range=5
+    :javascript
+      function search_acervo(){
+        var termo = $("#search_acervo").val();
+
+        $.ajax({
+          url: '{% url "search_acervo" %}',
+          type: 'GET',
+          data: {
+            'termo': termo
+          },
+          success: function (data) {
+            $('.list').html(data);
+          }
+        });
+      };

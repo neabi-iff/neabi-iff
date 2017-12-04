@@ -1,26 +1,24 @@
-- extends "base_site.html"
+- extends "zinnia/base.html"
 - load i18n staticfiles
 - load zinnia
 - load bootstrap_pagination
 
 
 - block content
-  .panel.neabi-panel
-    .panel-heading.neabi-heading.panel-destaque-header
-      %h1.publicacoes PUBLICAÇÕES
-      %p
-    - for pub in publicacoes_list
-      .panel-body.panel-destaque-body
-        %blockquote.box-fundo.detail
-          %h2
-            = pub.titulo
-            %a{'href':'={pub.arquivo.url }', 'class':'btn btn-orange'} Acessar Arquivo
-          %p
-            = pub.descricao|safe
+  .panel.panel-neabi
+    .panel-heading
+      .publicacoes PUBLICAÇÕES
+    .panel-body
+      - for pub in publicacoes_list
+          %blockquote.box-fundo.detail
+            %h2
+              = pub.titulo
+              %a{'href':'{{pub.arquivo.url }}', 'class':'btn btn-orange pull-right'} Acessar Arquivo
+            %p
+              = pub.descricao|safe
       -empty
-        .panel-body.panel-destaque-body
-          %blockquote.box-fundo
-            %h2 Não tem Fundo cadastrado no momento.
+        %blockquote.box-fundo.detail
+          %p Não tem publicações no momento.
       - if is_paginated
         .text-center
           - bootstrap_paginate page_obj range=5

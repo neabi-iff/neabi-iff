@@ -1,0 +1,87 @@
+- load comments i18n zinnia
+- load thumbnail
+%article{:class => "hentry {% if object.featured %} featured {% endif %}", :id => "entry-#{ object.pk }"}
+  - block entry-header
+    %header.entry-header.page-header
+      %h3.entry-title
+        - block entry-title
+          %a{:href => "#{object.get_absolute_url}", :rel => "bookmark", :title => "#{ object.title }"}
+            = object.title|widont
+        - block entry-info
+          %br/
+          %small.entry-info
+            - block entry-authors
+              - with authors=object.authors.all
+                - if authors|length
+                  - trans "Written by"
+                  - for author in authors
+                    %span.vcard.author
+                      %a.fn{:class => "url{% if not author.get_full_name %} nickname{% endif %}", :href => "#{ author.get_absolute_url }", :rel => "author", :title => "{% blocktrans %}Show all #{ author }'s entries{% endblocktrans %}"}
+                        = author
+                    - if not forloop.last
+                      ,
+                  - trans "on" context "on date"
+                - else
+                  - trans "Written on"
+            - block entry-published
+              %time.published{:datetime => '#{ object.publication_date|date:"c"}', :pubdate => "pubdate"}
+                = object.publication_date|date:"DATE_FORMAT"
+            - block entry-categories
+              - with categories=object.categories.all
+                - if categories|length
+                  - trans "in"
+                  - for category in categories
+                      %a{:href => "#{ category.get_absolute_url }", :rel => "tag category", :title => "{% blocktrans %}Show all entries in #{ category }{% endblocktrans %}"}
+                        = category
+                      - if not forloop.last
+                        ,
+                .
+  - block entry-body
+    .entry-body
+      - block entry-image
+        - if object.image
+          .entry-image
+            %p{:style => "text-align: center;"}
+              %img.img-thumbnail.img-responsive{:alt => "#{ object.title }", :src => "#{ object.image.url }"}/
+      - block entry-content
+        .entry-content.lead
+          = object_content|safe
+  - block entry-footer
+    %footer.entry-footer.well
+      - block entry-tags
+        %p.entry-tags
+          %span.glyphicon.glyphicon-tags
+          %strong
+            - trans "Tags"
+          \:
+          - for tag in object.tags_list
+            %a{:href => "{% url 'zinnia:tag_detail' tag %}", :rel => "tag", :title => "{% blocktrans %}Show all entries tagged by {{ tag }}{% endblocktrans %}"}  = tag
+          - empty
+            %span
+              - trans "No tags"
+      - block entry-shorturl
+        %p.entry-shorturl
+          %span.glyphicon.glyphicon-bookmark
+          %strong
+            - trans "Short url"
+          \:
+          %a{:href => "{{ object.short_url }}", :rel => "shortlink", :title => "{% blocktrans with object=object.title %}Short URL to {{ object }}{% endblocktrans %}"}
+            = object.short_url
+      - block entry-discussions
+        %p.entry-discussions
+          %span.glyphicon.glyphicon-comment
+          %strong 
+            - trans "Discussions"
+          \:
+          - block entry-comments
+            - with comment_count=object.comment_count
+              - if comment_count
+                %a{:href => "{{ object.get_absolute_url }}#comments", :title => "{% blocktrans with object=object.title %}Comments on {{ object }}{% endblocktrans %}"}
+                  {% blocktrans count comment_count=comment_count %}{{ comment_count }} comment{% plural %}{{ comment_count }} comments{% endblocktrans %}
+              - else
+                - if object.comments_are_open
+                  - trans "No comments yet."
+                  %a{:href => "{{ object.get_absolute_url }}#comment-form", :title => "{% blocktrans with object=object.title %}Leave a comment on {{ object }}{% endblocktrans %}"}
+                    - trans "Be first to comment!"
+                - else
+                  - trans "Comments are closed."

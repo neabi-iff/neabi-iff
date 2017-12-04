@@ -1,36 +1,33 @@
-- extends "base_site.html"
+- extends "zinnia/base.html"
 - load i18n staticfiles
 - load zinnia
 
 
 - block content
-  .panel.neabi-panel
-    .panel-heading.neabi-heading
-      %h1.contato CONTATO
+  .panel.panel-neabi
+    .panel-heading
+      .contato CONTATO
     .panel-body
       {{ object.descricao|safe }}
-      .social.navbar-right
-        - if object.email
-          %p.pull-right
+
+      %ul.list-group
+        %li.list-group-item
+          - if object.email
             %img{'src':'{% static "img/arroba.png" %}'}
-            email: {{ object.email}}
-          %br
-        - if object.telefone
-          %p.pull-right
+              {{ object.email}}
+        %li.list-group-item
+          - if object.telefone
             %img{'src':'{% static "img/telefone.png" %}'}
-            telefone: {{ object.telefone}}
-          %br
-        - if object.facebook
-          %p.pull-right
+              {{ object.telefone}}
+        %li.list-group-item
+          - if object.facebook
             %img{'src':'{% static "img/facebook.png" %}'}
-            {{ object.facebook}}
-          %br
-        - if object.twitter
-          %p.pull-right
+              {{ object.facebook}}
+        %li.list-group-item
+          - if object.twitter
             %img{'src':'{% static "img/twitter.png" %}'}
-            {{ object.twitter}}
-          %br
-        - if object.google_plus
-          %p.pull-right
+              {{ object.twitter}}
+        %li.list-group-item
+          - if object.google_plus
             %img{'src':'{% static "img/gmail.png" %}'}
-            {{ object.google_plus}}
+              {{ object.google_plus}}

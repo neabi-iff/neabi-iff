@@ -1,0 +1,18 @@
+- load staticfiles
+- load bootstrap3
+- load bootstrap_pagination
+- for serie in page_obj
+  %blockquote.box-fundo.detail
+    %h2
+      = serie.nome
+      %a{'class':'btn btn-orange pull-right', href: "{% if not serie.fundo.projeto %} {% url 'documento-list2' serie.fundo.slug serie.slug %} {% else %} {% url 'documento-list' serie.fundo.projeto.slug serie.fundo.slug serie.slug %} {% endif %}"}
+        Acessar Serie
+    %p
+      = serie.descricao|safe
+-empty
+  %blockquote.box-fundo.detail
+    %p Nenhum resultado para este termo, tente novamente!
+
+- if is_paginated
+  .text-center
+    - bootstrap_paginate page_obj range=5

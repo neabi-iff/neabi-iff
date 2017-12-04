@@ -1,57 +1,59 @@
-- extends "base_site.html"
+- extends "zinnia/base.html"
 
 - load staticfiles
 - load bootstrap3
 - load bootstrap_pagination
 
 - block content
-  .panel.neabi-panel
-    .panel-heading.neabi-heading.panel-destaque-header
-      %p.navbar-right.mozilla Para melhor visualização, utilize:
-        %a{ 'href':'http://br.mozdev.org/', 'target':"_blank"}
-          %img{'src':"{% static 'img/mozilla.png' %}", class:"img-responsive",'alt':"Firefox"}
-      %h1.acervo
-        = object.serie.nome
-      %p
+  .panel.panel-neabi
+    .panel-heading
+      .acervo
+        Documento
+        %button{'class':'btn btn-orange pull-right btn-sm', 'type':'button', :value => 'Voltar', :onClick =>'history.go(-1)', :aria-label => "Left Align"}
+          %span.glyphicon.glyphicon-chevron-left{:aria-hidden =>"true"}
+          Voltar
     .panel-body
       %blockquote.box-fundo.detail
         %h2
-          = object.titulo
-          %a{'class':'btn btn-orange', href: "{{ object.arquivo.url}}"}
-            Acessar Documento
-          %p Código de Referência:
-            = object.codigo_referencia
+          = documento.titulo
+          - if documento.arquivo
+            %a{'class':'btn btn-orange pull-right', href: "#{ documento.arquivo.url}", :role => "button"}
+              Acessar Arquivo
         %div.well.well-table
           %table.table.table-hover
             %tr
+              %th Código de Referência:
+              %td
+                = documento.codigo_referencia
+            %tr
               %th Notas de Conservação:
               %td
-                = object.nota_conservacao
+                = documento.nota_conservacao
             %tr
               %th Data do Documento:
               %td
-                = object.data
+                = documento.data
             %tr
               %th Dimensão de Suporte:
               %td
-                = object.dimensao_suporte
+                = documento.dimensao_suporte
             %tr
               %th Nível de Descrição:
               %td
-                = object.nivel_descricao
+                = documento.nivel_descricao
             %tr
               %th Nome(s) do(s) Produtor(es):
               %td
-                = object.autor
+                = documento.autor
             %tr
               %th Ámbito e Conteúdo:
               %td
-                = object.ambito_conteudo|safe
+                = documento.ambito_conteudo|safe
             %tr
               %th Condição de Acesso:
               %td
-                = object.condicao_acesso
+                = documento.condicao_acesso
             %tr
               %th Notas Gerais:
               %td
-                = object.nota_gerais|safe
+                = documento.nota_gerais|safe

@@ -2,14 +2,18 @@
 from django.db import models
 from datetime import datetime
 from tinymce.models import HTMLField
-import watson
+from django.core.exceptions import ValidationError
+from django.db.models import signals
+from django.template.defaultfilters import slugify
 
 
 def get_proximo_numero_id(self, model):
     ano_corrente = datetime.today().year
     try:
-        ultimo_numero_id_ano = model.objects.filter(criado_em__year=ano_corrente).latest('id')
-        proximo_numero_id = int(ultimo_numero_id_ano.id) + 1 # 20011-000001
+        ultimo_numero_id_ano = model.objects.filter(
+            criado_em__year=ano_corrente).latest('id')
+        proximo_numero_id = int(ultimo_numero_id_ano.id) + 1
+        # 20011-000001
     except model.DoesNotExist:
         proximo_numero_id = 1
     numero_id = "%s-%05d" % (ano_corrente, proximo_numero_id)
@@ -18,22 +22,22 @@ def get_proximo_numero_id(self, model):
 
 
 def pasta_fundo_uploads(instance, filename):
-    return u'uploads/neabi/fundo_{0}/serie_{1}/doc_{2}/{3}'.format(instance.serie.fundo,\
-     instance.serie, instance, filename)
+    _url = u'neabi/acervos/{0}/series/{1}/documentos/{2}/{3}'
+    return _url.format(instance.serie.fundo.slug, instance.serie.slug,
+                       instance.slug, filename)
 
 
 def pasta_fundo_uploads_images(instance, filename):
-    return u'uploads/neabi/fundo_{0}/images/{1}'.format(instance,\
-        filename)
+    _url = u'neabi/{0}/images/{1}'
+    return _url.format(instance.slug, filename)
 
-
-from django.core.exceptions import ValidationError
 
 def validar_maximo_uma_instancia(obj):
     model = obj.__class__
     if (model.objects.count() > 0 and
             obj.id != model.objects.get().id):
-        raise ValidationError("Só pode criar uma instância de %s." % model.__name__)
+        raise ValidationError("Só pode criar uma instância de %s."
+                              % model.__name__)
 
 
 class Contato(models.Model):
@@ -72,7 +76,7 @@ class Neabi(models.Model):
 class Publicacoes(models.Model):
     titulo = models.CharField(max_length=255)
     descricao = HTMLField("Descrição")
-    arquivo = models.FileField(upload_to='uploads/neabi/publicacoes/')
+    arquivo = models.FileField(upload_to='neabi/publicacoes/')
 
     class Meta:
         verbose_name = 'Plubicação'
@@ -88,7 +92,8 @@ class Fundo(models.Model):
     nome = models.CharField(max_length=255, unique=True)
     biblioteca = models.CharField(max_length=255)
     descricao = HTMLField("Descrição")
-    imagem = models.ImageField(upload_to=pasta_fundo_uploads_images, blank=True)
+    imagem = models.ImageField(upload_to=pasta_fundo_uploads_images,
+                               blank=True)
     slug = models.SlugField(blank=True, max_length=255, editable=False)
     criado_em = models.DateField(auto_now_add=True)
     projeto = models.OneToOneField('Projeto', blank=True, null=True)
@@ -122,21 +127,28 @@ class Serie(models.Model):
 
 
 class Documento(models.Model):
-    codigo_referencia = models.CharField('Código de Referência *', max_length=255, blank=True)
+    codigo_referencia = models.CharField('Código de Referência *',
+                                         max_length=255, blank=True)
     titulo = models.CharField('Título', max_length=255)
     data = models.DateField('Data do Documento')
     ano = models.CharField('Ano do Documento', max_length=4, blank=True)
-    dimensao_suporte = models.CharField('Dimensão e Suporte', max_length=1024, blank=True)
-    nivel_descricao = models.CharField('Nível de Descrição', max_length=1024, blank=True)
-    autor = models.CharField('Nome(s) do(s) Produtor(es)' , max_length=1024, blank=True)
+    dimensao_suporte = models.CharField('Dimensão e Suporte',
+                                        max_length=1024, blank=True)
+    nivel_descricao = models.CharField('Nível de Descrição',
+                                       max_length=1024, blank=True)
+    autor = models.CharField('Nome(s) do(s) Produtor(es)',
+                             max_length=1024, blank=True)
     ambito_conteudo = HTMLField('Ámbito e Conteúdo', blank=True)
-    condicao_acesso = models.CharField('Condição de Acesso', max_length=1024, blank=True)
-    nota_conservacao = models.CharField('Notas de Conservação', max_length=1024, blank=True)
+    condicao_acesso = models.CharField('Condição de Acesso',
+                                       max_length=1024, blank=True)
+    nota_conservacao = models.CharField('Notas de Conservação',
+                                        max_length=1024, blank=True)
     nota_gerais = HTMLField('Notas Gerais', blank=True)
     serie = models.ForeignKey("Serie", verbose_name='Série')
-    slug = models.SlugField(blank=True, max_length=255 , editable= False)
+    slug = models.SlugField(blank=True, max_length=255, editable=False)
     criado_em = models.DateField(auto_now_add=True)
-    arquivo = models.FileField(upload_to=pasta_fundo_uploads, blank=True, max_length=1024)
+    arquivo = models.FileField(upload_to=pasta_fundo_uploads,
+                               blank=True, max_length=1024)
 
     class Meta:
         verbose_name = "Documento"
@@ -166,7 +178,7 @@ class Social(models.Model):
 class Patrocinador(models.Model):
     nome = models.CharField(max_length=500)
     link = models.URLField(blank=True)
-    imagem = models.ImageField(upload_to="uploads/neabi/patrocinadores/")
+    imagem = models.ImageField(upload_to="neabi/patrocinadores/")
     acervo = models.ForeignKey('Fundo')
 
     class Meta:
@@ -180,7 +192,7 @@ class Patrocinador(models.Model):
 class Projeto(models.Model):
     nome = models.CharField(max_length=1024)
     descricao = HTMLField('Descrição')
-    slug = models.SlugField(blank=True, max_length=255 , editable= False)
+    slug = models.SlugField(blank=True, max_length=255, editable=False)
 
     class Meta:
         verbose_name = "Projeto"
@@ -192,8 +204,7 @@ class Projeto(models.Model):
 
 
 # SIGNALS
-from django.db.models import signals
-from django.template.defaultfilters import slugify
+
 
 def create_slug(signal, instance, sender, **kwargs):
     """Este signal gera um slug automaticamente."""
@@ -208,7 +219,3 @@ signals.pre_save.connect(create_slug, sender=Documento)
 signals.pre_save.connect(create_slug, sender=Fundo)
 signals.pre_save.connect(create_slug, sender=Serie)
 signals.pre_save.connect(create_slug, sender=Projeto)
-
-watson.register(Fundo)
-watson.register(Serie)
-watson.register(Documento)

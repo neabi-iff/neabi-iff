@@ -1,5 +1,5 @@
-Django==1.7.7
-hamlpy
+Django==1.10
+django-hamlpy
 django-nose
 model_mommy
 django-bootstrap3
@@ -8,7 +8,6 @@ specloud
 Pillow
 should-dsl
 django-blog-zinnia
-django-tinymce
 zinnia-wysiwyg-tinymce
 django-app-namespace-template-loader
 zinnia-theme-bootstrap

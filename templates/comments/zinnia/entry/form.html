@@ -1,5 +1,4 @@
 {% load comments i18n %}
-{% load firstof from future %}
 <form action="{% comment_form_target %}" method="post" id="comment-form" class="well form-horizontal">
   <div>{% csrf_token %}</div>
   {% if form.non_field_errors %}
@@ -35,7 +34,7 @@
     </p>
     {% endif %}
     <p class="submit">
-      <input type="submit" name="submit" class="submit-post btn btn-primary submit-preview" value="{% trans "Post" %}" />
+      <input type="submit" name="submit" class="submit-post btn btn-orange submit-preview" value="{% trans "Post" %}" />
       <input type="submit" name="preview" class="submit-preview btn btn-default submit-post" value="{% trans "Preview" %}" />
     </p>
   </fieldset>

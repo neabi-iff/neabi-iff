@@ -2,6 +2,7 @@ body{
 	background-image: url("../img/background.jpg")!important;
   font-family: 'gisha';
   color: #47280C;
+  font-size: 15px;
 }
 
 .container-cabecalho{
@@ -131,10 +132,10 @@ nav.navbar{
 
 .entry-title{
     font-family: 'gishabd';
-    line-height: 0.8;
+    /*line-height: 0.8;
     padding-bottom: 9px;
     margin-bottom: -1px;
-    border-bottom: 1px solid #D05D2A;
+    border-bottom: 1px solid #D05D2A;*/
 }
 h2 small{
   font-size: 16px;
@@ -239,7 +240,7 @@ div.entry-content.lead{
 
 .entry-header{
   padding-bottom: 0px;
-  margin-bottom: 7px;
+  margin-bottom: 0px;
 }
 
 .page-header{
@@ -260,8 +261,8 @@ blockquote.box-fundo{
   background-color: rgb(229, 206, 176);
   /*background-color: rgb(219, 196, 164);*/
 
-  padding: 1px 20px;
-  padding-bottom: 10px;
+  /*padding: 1px 20px;*/
+  /*padding-bottom: 10px;*/
 }
 blockquote.box-fundo h2{
   font-family: 'BreeSerifRegular';
@@ -271,7 +272,8 @@ blockquote p{
 }
 
 blockquote.box-fundo .row{
-  margin-left: auto
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .neabi-panel{
@@ -310,7 +312,7 @@ h1{
   font-size: 21px;
 }
 h2{
-  font-size: 19px;
+  font-size: 25px;
 }
 .dropdown-menu{
   background-color: rgba(227, 227, 227, 0.91);
@@ -323,7 +325,6 @@ h2{
 }
 blockquote.detail{
   border: none;
-  margin-bottom: auto;
 }
 blockquote{
   background-color: rgb(229, 206, 176);
@@ -401,4 +402,122 @@ ul.nav li.active a {
 ul.nav li a:hover {
     background: rgb(229, 206, 176);
     text-decoration: none;
+}
+
+.panel-neabi{
+  border-color: #EFBCA2;
+}
+
+.panel-neabi>.panel-heading {
+    color: #47280C;
+    background-color: rgb(229, 206, 176);
+    border-color: #EFBCA2;
+}
+
+
+/*===========*/
+.blogShort{ border-bottom:1px solid #D05D2A;}
+.margin10{margin-bottom:10px; margin-right:10px;}
+.btn-blog{
+  margin-bottom: 10px;
+}
+
+/*.post-body-initial {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-bottom: 0;
+}*/
+
+/*.post-image-initial {
+   margin-right: inherit;
+}*/
+
+/*
+.post-title-initial {
+    padding: 0;
+    flex: 1 0 0;
+}*/
+
+.entry-content{
+  font-size: 17px;
+}
+
+h3 small{
+  color: #4c3426;
+}
+
+legend {
+  border-bottom:1px solid #D05D2A;
+}
+
+.panel{
+    background-color: #f9ebe0;
+}
+
+.contato{
+    color: #ce704e;
+}
+
+.publicacoes{
+  color: #BE4F27;
+}
+
+.acervo{
+  color: #BE4F27;
+}
+
+.tab-content {
+  background-color: rgb(229, 206, 176);
+  border-color: #EFBCA2;
+  padding : 15px 15px;
+}
+
+.nav-tabs{
+  border-color: #EFBCA2;
+  font-size: 18px;
+}
+
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+  color: #555;
+  cursor: default;
+  background-color: rgb(229, 206, 176);
+  border-color: #EFBCA2;
+  border: 1px solid #EFBCA2;
+  /*border-bottom-color: transparent;*/
+  border-bottom: 5px solid #D05D2A;
+}
+
+.tab-pane h2{
+  font-family: 'BreeSerifRegular';
+}
+
+
+h2 small{
+  color:#BE4F27;
+}
+
+.table tbody>tr>th, .table tbody>tr>td{
+  border-top: 1px solid #EFBCA2;
+}
+
+blockquote>h2{
+  margin-top: 5px;
+  
+}
+
+.panel-body h2{
+  font-family: 'BreeSerifRegular';
+}
+
+.list {
+  padding:20px 0 0;
+}
+.list > li {
+  display:block;
+}
+
+.search{
+  font-family: 'BreeSerifRegular';
+  font-size: 16px;
 }

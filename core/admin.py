@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Neabi, Contato, Publicacoes, Documento, Serie, Fundo, Social, Patrocinador, Projeto
 
-import watson
+from watson.admin import SearchAdmin
 
 @admin.register(Contato)
 class ContatoAdmin(admin.ModelAdmin):
@@ -19,7 +19,7 @@ class PublicacoesAdmin(admin.ModelAdmin):
 
 
 @admin.register(Documento)
-class DocumentoAdmin(watson.SearchAdmin):
+class DocumentoAdmin(SearchAdmin):
     list_display = ('titulo','codigo_referencia','nota_conservacao','data','autor','condicao_acesso','nota_gerais',\
         'serie', 'arquivo')
     search_fields = ("titulo", "codigo_referencia",)

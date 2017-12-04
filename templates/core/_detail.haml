@@ -1,0 +1,101 @@
+- extends "zinnia/base.html"
+
+- load staticfiles
+- load bootstrap3
+- load bootstrap_pagination
+
+- block content
+  .panel.panel-neabi
+    .panel-heading.neabi-heading
+      .acervo
+        Acervo
+        %button{'class':'btn btn-orange pull-right btn-sm', 'type':'button', :value => 'Voltar', :onClick =>'history.go(-1)', :aria-label => "Left Align"}
+          %span.glyphicon.glyphicon-chevron-left{:aria-hidden =>"true"}
+          Voltar
+    .panel-body
+      %blockquote.box-fundo.detail
+        .row
+          - if object.fundo
+            - if object.fundo.imagem
+              .col-xs-4.col-sm-6.col-md-4.col-lg-3
+                %img.img-thumbnail.img-responsive{ :src => "{{object.fundo.imagem.url}}", :width =>"155px"}
+            %h2
+              = object.fundo
+              %small
+                = object.fundo.biblioteca
+            %p
+              = object.fundo.descricao|safe
+
+            - if object.fundo.patrocinador_set.all
+              %h2 Apoio:
+              %p
+                - for patrocinador in object.fundo.patrocinador_set.all
+                  - if patrocinador.imagem
+                    %a{:href => "{{ patrocinador.link }}", :title => "{{patrocinador.nome}}"}
+                      %img.img-thumbnail.img-responsive{:height => "80px", :src => "{{patrocinador.imagem.url}}", :width => "80px"}/
+                  - else
+                    %a{:href => "{{ patrocinador.link }}", :title => "{{patrocinador.nome}}"}
+                      = patrocinador.nome
+          - else
+            - if object.imagem
+              .col-xs-4.col-sm-6.col-md-4.col-lg-3
+                %img.img-thumbnail.img-responsive{ :src => "{{fundo.imagem.url}}", :width =>"155px"}
+            %h2
+              = object
+              %small
+                = object.biblioteca
+            %p
+              = object.descricao|safe
+
+            - if fundo.patrocinador_set.all
+                %h2 Apoio:
+                %p
+                  - for patrocinador in fundo.patrocinador_set.all
+                    - if patrocinador.imagem
+                      %a{:href => "{{ patrocinador.link }}", :title => "{{patrocinador.nome}}"}
+                        %img.img-thumbnail.img-responsive{:height => "80px", :src => "{{patrocinador.imagem.url}}", :width => "80px"}/
+                    - else
+                      %a{:href => "{{ patrocinador.link }}", :title => "{{patrocinador.nome}}"}
+                        = patrocinador.nome
+
+
+      / serie
+      .panel.panel-neabi
+        .panel-heading.neabi-heading
+          .acervo
+            Series
+        .panel-body
+          .left-inner-addon
+            %i.glyphicon.glyphicon-search
+            %input.search.form-control#search_serie{ :type => "text", :placeholder => "Pesquisar Serie...", :oninput => "search_serie();" }
+          .list
+            - for serie in page_obj
+              %blockquote.box-fundo.detail
+                %h2
+                  = serie.nome
+                  %a{'class':'btn btn-orange pull-right', href: "{% if not serie.fundo.projeto %} {% url 'documento-list2' serie.fundo.slug serie.slug %} {% else %} {% url 'documento-list' serie.fundo.projeto.slug serie.fundo.slug serie.slug %} {% endif %}"}
+                    Acessar Serie
+                %p
+                  = serie.descricao|safe
+            -empty
+              %blockquote.box-fundo.detail
+                %p O arcevo ainda não possui series.
+
+            - if is_paginated
+              .text-center
+                - bootstrap_paginate page_obj range=5
+    :javascript
+      function search_serie(){
+        var termo = $("#search_serie").val();
+
+        $.ajax({
+          url: '{% if object.fundo %}{% url "search_serie" object.fundo.slug %}{% else %}{% url "search_serie" object.slug %}{% endif %}',
+          type: 'GET',
+          data: {
+            'termo': termo,
+          },
+          success: function (data) {
+            $('.list').html(data);
+          }
+        });
+      };

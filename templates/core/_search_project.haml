@@ -1,0 +1,32 @@
+- load staticfiles
+- load bootstrap3
+- load bootstrap_pagination
+
+- for projeto in object_list
+  %blockquote.box-fundo.detail
+    .row
+      - if projeto.fundo.imagem
+        .col-xs-4.col-sm-6.col-md-4.col-lg-3
+          %img.img-thumbnail.img-responsive{ :src => "{{projeto.fundo.imagem.url}}", :width =>"155px"}
+      %h2.nome
+        = projeto.nome
+        - if projeto.fundo
+          %a{'class':'btn btn-orange pull-right', href: "{% url 'projeto_detail' projeto.slug projeto.fundo.slug %}"}
+            Acessar Acervo
+      = projeto.descricao|safe
+     - if projeto.fundo.patrocinador_set.all
+      %h2 Apoio:
+      %p
+        - for patrocinador in projeto.fundo.patrocinador_set.all
+          - if patrocinador.imagem
+            %a{:href => "{{ patrocinador.link }}", :title => "{{patrocinador.nome}}"}
+              %img.img-thumbnail.img-responsive{:height => "80px", :src => "{{patrocinador.imagem.url}}", :width => "80px"}/
+          - else
+            %a{:href => "{{ patrocinador.link }}", :title => "{{patrocinador.nome}}"}
+              = patrocinador.nome
+-empty
+  %blockquote.box-fundo.detail
+    %p Nenhum resultado para este termo, tente novamente!
+- if is_paginated
+    .text-center
+      - bootstrap_paginate page_obj range=5

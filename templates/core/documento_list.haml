@@ -1,4 +1,4 @@
-- extends "base_site.html"
+- extends "zinnia/base.html"
 
 - load i18n zinnia
 - load staticfiles
@@ -7,61 +7,68 @@
 
 
 - block content
-  .panel.neabi-panel
-    .panel-heading.neabi-heading.panel-destaque-header
-      %h1.acervo {{ documento_list.0.serie.nome}}
-      %p Documentos:
-    - for documento in documento_list
-      .panel-body.panel-destaque-body
-        %blockquote.box-fundo.detail
-          %h2
-            = documento.titulo
-            %button{'class':'btn btn-orange', 'type':'button','data-toggle':'collapse', 'data-target':'#{{documento.id}}', 'aria-expanded':'false', 'aria-controls':'{{documento.id}}'}
-              Mais detalhes
-            - if documento.arquivo
-              %a{'class':'btn btn-orange', href: "{{ documento.arquivo.url}}"}
-                Acessar Documento
-            %p Código de Referência:
-              = documento.codigo_referencia
-          %div.collapse{'id':'{{documento.id}}'}
-            %div.well.well-table
-              %table.table.table-hover
-                %tr
-                  %th Notas de Conservação:
-                  %td
-                    = documento.nota_conservacao
-                %tr
-                  %th Data do Documento:
-                  %td
+  .panel.panel-neabi
+    .panel-heading
+      .acervo
+        Serie
+        %button{'class':'btn btn-orange pull-right btn-sm', 'type':'button', :value => 'Voltar', :onClick =>'history.go(-1)', :aria-label => "Left Align"}
+          %span.glyphicon.glyphicon-chevron-left{:aria-hidden =>"true"}
+          Voltar
+    .panel-body
+      %blockquote.box-fundo.detail
+        %h2
+          = serie
+        %p
+          = serie.descricao|safe
+      .panel.panel-neabi
+        .panel-heading.neabi-heading
+          .acervo
+            Documentos
+        .panel-body
+          .left-inner-addon
+            %i.glyphicon.glyphicon-search
+            %input.search.form-control#search_documento{ :type => "text", :placeholder => "Pesquisar Documentos...", :oninput => "search_documento();" }
+          .list
+            - for documento in documento_list
+              %blockquote.box-fundo.detail
+                %h2
+                  = documento.titulo
+                  - if documento.arquivo
+                      %a{'class':'btn btn-orange pull-right', href: "{% if not documento.serie.fundo.projeto %} {% url 'documento-detail2' documento.serie.fundo.slug documento.serie.slug documento.slug %} {% else %} {% url 'documento-detail' documento.serie.fundo.projeto.slug documento.serie.fundo.slug documento.serie.slug documento.slug %} {% endif %}", :role => "button"}
+                        Acessar Documento
+                %dl.dl-horizontal
+                  %dt Código de Referencia:
+                  %dd
+                    = documento.codigo_referencia
+                  %dt Data do Documento:
+                  %dd
                     = documento.data
-                %tr
-                  %th Dimensão de Suporte:
-                  %td
-                    = documento.dimensao_suporte
-                %tr
-                  %th Nível de Descrição:
-                  %td
-                    = documento.nivel_descricao
-                %tr
-                  %th Nome(s) do(s) Produtor(es):
-                  %td
-                    = documento.autor
-                %tr
-                  %th Ámbito e Conteúdo:
-                  %td
-                    = documento.ambito_conteudo|safe
-                %tr
-                  %th Condição de Acesso:
-                  %td
-                    = documento.condicao_acesso
-                %tr
-                  %th Notas Gerais:
-                  %td
-                    = documento.nota_gerais|safe
-    -empty
-      .panel-body.panel-destaque-body
-        %blockquote.box-fundo.detail
-          %h2 Não possui documentos para esta série.
-    - if is_paginated
-      .text-center
-        - bootstrap_paginate page_obj range=5
+                  %dt Ámbito e Conteúdo:
+                  %dd
+                    = documento.ambito_conteudo|safe|truncatewords:"20"
+                  %dt Notas Gerais:
+                  %dd
+                    = documento.nota_gerais|safe|truncatewords:"20"
+            -empty
+              %blockquote.box-fundo.detail
+                %p A serie ainda não possui documentos.
+
+            - if is_paginated
+              .text-center
+                - bootstrap_paginate page_obj range=5
+
+    :javascript
+      function search_documento(){
+        var termo = $("#search_documento").val();
+
+        $.ajax({
+          url: '{% url "search_documento" serie.slug %}',
+          type: 'GET',
+          data: {
+            'termo': termo,
+          },
+          success: function (data) {
+            $('.list').html(data);
+          }
+        });
+      };

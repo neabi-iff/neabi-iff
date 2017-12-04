@@ -30,7 +30,7 @@ SITE_ID = 1
 
 # Application definition
 
-INSTALLED_APPS = (
+DJANGO_APPS = (
     'grappelli',
     'filebrowser',
     'django.contrib.admin',
@@ -40,20 +40,30 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+)
+
+EXTERNAL_APPS = (
     'django_comments',
     'mptt',
     'zinnia_bootstrap',
     'sorl.thumbnail',
+    'tagging',
     'tinymce',
     'zinnia',
     'zinnia_tinymce',
-    'tagging',
     'django_nose',
     'bootstrap3',
     'bootstrap_pagination',
     'watson',
-    'core',
+    'hamlpy',
 )
+
+LOCAL_APPS = (
+    'core.apps.CoreConfig',
+)
+
+INSTALLED_APPS = DJANGO_APPS + EXTERNAL_APPS + LOCAL_APPS
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -82,9 +92,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'pt-BR'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'America/Recife'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -105,64 +115,96 @@ STATICFILES_DIRS = (
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-TEMPLATE_LOADERS = (
-    'app_namespace.Loader',
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
-    'hamlpy.template.loaders.HamlPyFilesystemLoader',
-    'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
-)
+# TEMPLATE_LOADERS = (
+#     'app_namespace.Loader',
+#     'django.template.loaders.filesystem.Loader',
+#     'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+#     'hamlpy.template.loaders.HamlPyFilesystemLoader',
+#     'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
+# )
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates/'),
-)
+# TEMPLATE_DIRS = (
+#     os.path.join(BASE_DIR, 'templates/'),
+# )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.request',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'zinnia.context_processors.version',
-    'core.context_processors.social',
-    'core.context_processors.destaque_acervo',
-)
+# TEMPLATE_CONTEXT_PROCESSORS = (
+#     'django.contrib.auth.context_processors.auth',
+#     'django.contrib.messages.context_processors.messages',
+#     'django.core.context_processors.i18n',
+#     'django.core.context_processors.request',
+#     'django.core.context_processors.media',
+#     'django.core.context_processors.static',
+#     'zinnia.context_processors.version',
+#     'core.context_processors.social',
+#     'core.context_processors.destaque_acervo',
+# )
+
+
+TEMPLATES = [{
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, "templates"),
+        ],
+        'APP_DIRS': False,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.request',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'zinnia.context_processors.version',
+                'core.context_processors.social',
+                'core.context_processors.destaque_acervo',
+            ],
+            'loaders':[
+                'hamlpy.template.loaders.HamlPyFilesystemLoader',
+                'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
+                'app_namespace.Loader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'django.template.loaders.eggs.Loader',
+            ]
+        },
+    }]
+
+
 
 BOOTSTRAP3 = {
-    'jquery_url':os.path.join(STATIC_URL,'js/jquery-1.11.1.min.js'),
-    'css_url': os.path.join(STATIC_URL,'bootstrap3/css/bootstrap.min.css'),
-    'javascript_url':os.path.join(STATIC_URL,'bootstrap3/js/bootstrap.min.js'),
-    'horizontal_label_class': 'col-md-3',
-    'horizontal_field_class': 'col-md-8',
+    'jquery_url': os.path.join(STATIC_URL, 'js/jquery-1.11.1.min.js'),
+    'css_url': os.path.join(STATIC_URL, 'bootstrap3/css/bootstrap.min.css'),
+    'javascript_url': os.path.join(STATIC_URL, 'bootstrap3/js/bootstrap.min.js'),
+    'horizontal_label_class': 'col-md-2',
+    'horizontal_field_class': 'col-md-10',
 }
 
-TINYMCE_SPELLCHECKER = True
+
 TINYMCE_FILEBROWSER = True
-FILEBROWSER_URL_FILEBROWSER_MEDIA = "/static/filebrowser/"
 
 TINYMCE_DEFAULT_CONFIG = {
-    'theme' : "advanced",
+    'theme': "advanced",
+    'mobile': {'theme': 'mobile'},
     'mode': "textareas",
-    'plugins' : "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+    'plugins': "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
 
-    'theme_advanced_buttons1' : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect,|,code",
-    'theme_advanced_buttons2' : "cut,copy,paste,pastetext,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,forecolor,backcolor",
-    'theme_advanced_buttons3' : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,advhr,|,ltr,rtl",
+    'theme_advanced_buttons1': "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect,|,code",
+    'theme_advanced_buttons2': "cut,copy,paste,pastetext,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,forecolor,backcolor",
+    'theme_advanced_buttons3': "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,advhr,|,ltr,rtl",
 
-    'theme_advanced_toolbar_location' : "top",
-    'theme_advanced_toolbar_align' : "left",
-    'theme_advanced_statusbar_location' : "bottom",
-    'theme_advanced_resizing' : "true",
+    'theme_advanced_toolbar_location': "top",
+    'theme_advanced_toolbar_align': "left",
+    'theme_advanced_statusbar_location': "bottom",
+    'theme_advanced_resizing': "true",
 
-    'theme_advanced_buttons1_add' : "media",
-    'theme_advanced_buttons2_add' : "advimage",
+    'theme_advanced_buttons1_add': "media",
+    'theme_advanced_buttons2_add': "advimage",
 
     'language': "{{ language }}",
     'directionality': "{{ directionality }}",
-    'spellchecker_languages' : "{{ spellchecker_languages }}",
-    'spellchecker_rpc_url' : "{{ spellchecker_rpc_url }}",
+    'spellchecker_languages': "{{ spellchecker_languages }}",
+    'spellchecker_rpc_url': "{{ spellchecker_rpc_url }}",
 
 }
 
