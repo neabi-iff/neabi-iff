@@ -526,7 +526,7 @@ blockquote>h2{
 html{ height:100%; }
 body{ min-height:100%; padding:0; margin:0; position:relative; }
 body:after{ content:''; display:block; height:100px; }
-footer{
+footer div.footer-skeleton{
   position:absolute;
   bottom:0;
   width:100%;
