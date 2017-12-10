@@ -8,9 +8,9 @@ class CoreConfig(AppConfig):
     verbose_name = u"Administração do Fundo"
 
     def ready(self):
-        Fundo = self.get_model("Fundo")
-        Serie = self.get_model("Serie")
-        Documento = self.get_model("Documento")
-        watson.register(Fundo)
-        watson.register(Serie)
-        watson.register(Documento)
+        fundo = self.get_model("Fundo")
+        serie = self.get_model("Serie")
+        documento = self.get_model("Documento")
+        watson.register(fundo)
+        watson.register(serie)
+        watson.register(documento)
